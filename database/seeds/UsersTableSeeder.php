@@ -1,0 +1,128 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class UsersTableSeeder extends Seeder
+{
+
+    static $names = [
+        'Vickey',
+        'Karen',
+        'Kyla',
+        'Sau',
+        'Evangeline',
+        'Talitha',
+        'Reina',
+        'Valrie',
+        'Zita',
+        'Alease',
+        'Alissa',
+        'Kayleen',
+        'Erica',
+        'Suzann',
+        'Lora',
+        'Bernie',
+        'Oralia',
+        'Sharon',
+        'Lesli',
+        'Juliet',
+        'Celeste',
+        'Brendan',
+        'Corrie',
+        'Walker',
+        'Eloisa',
+        'Shantelle',
+        'Marcelene',
+        'Annabelle',
+        'Carmelina',
+        'Nicholas',
+        'Leeanna',
+        'Nova',
+        'Dina',
+        'Staci',
+        'Blaine',
+        'Clement ',
+        'Alexander ',
+        'Noah ',
+        'Dick ',
+        'Jae ',
+        'Romeo ',
+        'Jamison ',
+        'Jaime ',
+        'Darron ',
+        'Alphonso ',
+        'Hal ',
+        'Alden ',
+        'Renaldo ',
+        'Herb ',
+        'Gustavo ',
+        'Rodrick ',
+        'Kory ',
+        'Julius ',
+        'Gil ',
+        'Reuben ',
+        'Henry ',
+        'Scot ',
+        'Cliff ',
+        'Cristopher ',
+        'Clifton ',
+        'Graham ',
+        'Vince ',
+        'Young ',
+        'Jack ',
+        'Nathanial ',
+        'Terrence ',
+        'Jefferson ',
+        'Williams ',
+        'Edison ',
+        'Walker ',
+        'Barney ',
+        'Gaylord ',
+        'Randolph ',
+        'Eloy ',
+        'Dewey ',
+        'Floyd ',
+        'Lucien ',
+        'Lyndon ',
+        'Arthur ',
+        'Brenton ',
+        'Vito ',
+        'Vern ',
+        'Kraig ',
+        'Ronnie ',
+        'Susy',
+        'Annemarie',
+        'Kelvin',
+        'Mariel',
+        'Albert',
+        'Mitzie',
+        'Ashly',
+        'Jenna',
+        'Karlene',
+        'Codi',
+        'Deborah',
+        'Mohammed',
+        'Francis',
+        'Esta',
+        'Kenda '
+    ];
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run() {
+        $fn = self::$names[random_int(0, sizeof(self::$names))];
+        $fn = trim($fn);
+
+        DB::table('users')->insert([
+            'firstname' => $fn,
+            'username' => strtolower($fn),
+            'email' => strtolower($fn).'@gmail.com',
+            'phone' => '+2557'.random_int(55000000, 77999999),
+            'othernames' => self::$names[random_int(0, sizeof(self::$names))],
+            'password' => bcrypt('password'),
+            'role_id' => 0
+        ]);
+    }
+}
