@@ -43,11 +43,11 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    &nbsp;
+                    {{-- left side nav is empty! --}}
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" style="margin-right: 18px;">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ route('login') }}">Login</a></li>
@@ -56,11 +56,12 @@
                         <li><img src="http://cervical.esurveillance.or.tz:9363/images/profile_pic.svg" width="52px"></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                               <b>{{ Auth::user()->firstname .' '.Auth::user()->othernames }} </b> <span class="caret"></span>
+                               <b>{{ Auth::user()->firstname.' '.Auth::user()->othernames }} </b> <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">My Profile</a></li>
+                                <li><a href="#">Profile <B>({{ \App\Role::find(Auth::user()->role_id)->role_name }})</B></a></li>
+
                                 <li>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -79,6 +80,7 @@
             </div>
         </div>
     </nav>
+    >
 
     @yield('content')
 </div>

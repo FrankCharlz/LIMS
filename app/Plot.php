@@ -11,4 +11,9 @@ class Plot extends Model
     protected  $primaryKey = 'plot_id';
 
     public $timestamps = false;
+
+
+    public function owner() {
+        return $this->hasOne('App\User', 'user_id');
+    }
 }

@@ -12,4 +12,7 @@ class Block extends Model
 
     public $timestamps = false;
 
+    public function street() {
+        return $this->belongsTo(Street::class, 'street_id');
+    }
 }

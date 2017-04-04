@@ -17,5 +17,19 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    
+
+    public function applications() {
+        return $this->hasMany(Application::class, 'user_id');
+    }
+
+
+    public function plots() {
+        return $this->hasMany(Plot::class, 'user_id');
+    }
+
+    public function role() {
+        return $this->hasOne(Role::class, 'role_id');
+    }
+
+
 }

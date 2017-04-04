@@ -18,3 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+
+
+Route::get('/aaa', function() {
+    return \App\User::find(2)->role;
+});

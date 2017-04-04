@@ -29,7 +29,4 @@ class LoginController extends Controller {
         return 'username'; //to user username instead of email
     }
 
-    protected function getFailedLoginMessage(){
-        return 'Incorrect user name or password!.';
-    }
 }
