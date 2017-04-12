@@ -15,12 +15,21 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/demo', function () {
+    return view('welcome');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
 
+Route::get('/plots/add/{lat}/{lng}', 'PlotsController@add');
+Route::get('api/plots', 'PlotsController@all');
 
-Route::get('/aaa', function() {
-    return \App\User::find(2)->role;
-});
+
+Route::post('/plots/new', 'PlotsController@new_plot');
+
+
+//applications
+Route::get('/applications/add', 'ApplicationController@create_view');

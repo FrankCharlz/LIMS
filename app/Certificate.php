@@ -8,7 +8,6 @@ class Certificate extends Model
 {
 
     protected $table  = 'certificate';
-    protected  $primaryKey = 'certificate_id';
 
     public $timestamps = false;
 }
