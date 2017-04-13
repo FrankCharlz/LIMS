@@ -14,7 +14,7 @@ table {
 
 tr > td:nth-child(1) {
     /* limit lefty column width */
-    width: 100px;
+    width: 120px;
     max-width: 120px;
     font-weight: bold;
 }

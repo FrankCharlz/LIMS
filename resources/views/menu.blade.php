@@ -2,6 +2,7 @@
     <div class="m-list-group">
         <ul class="nav-mj">
             <li class="m-list-group-item"><a href="/home"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+            <li class="m-list-group-item"><a href="/home">Announcements</a></li>
 
             @if(Auth::guest())
                 <li class="m-list-group-item"><a href="#">Search for a plot **</a></li>
