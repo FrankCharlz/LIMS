@@ -1,15 +1,18 @@
+var radius = 16;
+var opacity = 0.5;
+
 var redCircle = {
     color: '#f03',
     fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 8
+    fillOpacity: opacity,
+    radius: radius
 };
 
 var greenCircle = {
     color: 'red',
     fillColor: 'red',
-    fillOpacity: 0.5,
-    radius: 8
+    fillOpacity: opacity,
+    radius: radius
 };
 
 
@@ -51,8 +54,16 @@ $(document).ready(function () {
         $.get( "/api/plots", function(data) {
             console.log(data);
             for (var i = 0; i<data.length; i++) {
-                L.circle([data[i].latitude, data[i].longitude], greenCircle).addTo(map);
-                if (i == 63) break;
+                var circle = L.circle([data[i].latitude, data[i].longitude], greenCircle).addTo(map);
+
+                var popup = L.popup();
+                popup.setContent('<h4>Plot '+data[i].plot_number+'</h4><br>'
+                    +"<br><a href=plots/view/"+data[i].plot_id+">View plot information</a>"
+                );
+
+                circle.bindPopup(popup);
+
+                if (i == 73) break;
             }
         });
 

@@ -23,6 +23,18 @@ class PlotsController extends Controller {
             ->with('fresh', true);
     }
 
+    public function view($id) {
+        $plot = Plot::find($id);
+        $cert = $plot->certificate;
+        $wapi = $plot->wapi();
+
+        return view('plot-details')
+            ->with('plot', $plot)
+            ->with('cert', $cert)
+            ->with('wapi', $wapi);
+    }
+
+
     public function new_plot(Request $request) {
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {

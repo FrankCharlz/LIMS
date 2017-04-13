@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Application;
+use App\User;
 use Illuminate\Http\Request;
 
 class ApplicationController extends Controller {
@@ -38,6 +40,16 @@ class ApplicationController extends Controller {
 
     public function update(Request $request, $id) {
 
+    }
+
+    public function listForUser($id) {
+        $applications = User::find($id)->applications;
+        return view('applications')->with('applications', $applications);
+    }
+
+    public function listAll() {
+        $applications = Application::all();
+        return view('applications')->with('applications', $applications);
     }
 
 

@@ -1,10 +1,5 @@
 /* Styles written here will override those in app.css upon conflict */
 
-
-.nav-mj>li>a {
-    padding: 0!important;
-}
-
 .medium-menu a {
     padding: 4px auto;
 }
@@ -28,7 +23,6 @@
 
 .m-title {
     display: block;
-    /* text-decoration: wavy; */
     font-weight: 300;
     font-size: 3.3rem;
     color: black;
@@ -39,4 +33,36 @@
 
 .m-title-brand {
     top: 4px;
+}
+
+.m-list-group-item {
+    display: block;
+    border-bottom: 1px solid grey;
+    font-size: 1.8rem;
+}
+
+.m-list-group-item a{
+    color: black;
+    text-decoration: none;
+    display: block;
+    padding: 6px 2px;
+}
+
+.m-list-group-item a:hover{
+    background: #f1f1f1;
+}
+.m-list-group-item a:active{
+    background: #f1f1f1;
+}
+
+h3 { margin-top: 8px;}
+
+
+#btn-del-app {
+    font-size: 2rem;
+    color: #da4848;
+}
+
+#btn-del-app:hover {
+    font-weight: bold;
 }

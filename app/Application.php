@@ -8,4 +8,5 @@ class Application extends Model {
 
     protected $table  = 'application';
     protected  $primaryKey = 'id';
+    //protected $dateFormat = 'Y-m-d';
 }

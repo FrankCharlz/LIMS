@@ -442,7 +442,7 @@ class PlotTableSeeder extends Seeder
             'owner_id' => self::users[random_int(0, sizeof(self::users)-1)],
             'certificate_id' => random_int(2, 7),
             'block_id' => random_int(1, 120),
-            'plot_number' => random_int(100, 999),
+            'plot_number' => random_int(100, 999) .' '.chr(random_int(65, 91)),
             'status_id' => random_int(1,4),
             'latitude' => $this->locs[$even],
             'longitude' => $this->locs[$odd]

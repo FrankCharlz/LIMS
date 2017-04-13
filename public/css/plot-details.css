@@ -1,0 +1,70 @@
+.wapi, .coord {
+    display: block;
+    text-transform: capitalize;
+}
+
+h4 {
+    font-size: 2.7rem;
+    font-weight: 300;
+}
+
+table {
+    margin-top: 8px;
+}
+
+tr > td:nth-child(1) {
+    /* limit lefty column width */
+    width: 100px;
+    max-width: 120px;
+    font-weight: bold;
+}
+
+.cert img {
+    width: 300px;
+    margin: auto;
+    display: inline-table;
+}
+
+#btn-buy {
+    display: inline-block;
+    float: right;
+    margin: -38px 2px 8px 0;
+    padding: auto 8px;
+    background: #d9edf7;
+}
+
+.maps div {
+    display: inline-block;
+    width:320px;
+    height:250px
+
+}
+
+/* buying confirmation pop up */
+.buy-popup-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    display: none;
+    transition: opacity .3s ease;
+}
+
+.buy-popup-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.buy-popup-container {
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px 30px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+    transition: all .3s ease;
+    /*font-family: Helvetica, Arial, sans-serif;*/
+}

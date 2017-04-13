@@ -32,5 +32,6 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="https://use.fontawesome.com/ef259a755c.js"></script>
 </body>
 </html>

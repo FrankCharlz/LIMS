@@ -46,7 +46,7 @@
                     {{ Form::file('image', null, ['id'=>'certificate', 'class' => 'form-control']) }}
                 </div>
 
-                {{ Form::submit('SUBMIT') }}
+                {{ Form::submit('SUBMIT', ['class' => 'btn btn-default']) }}
 
                 {{ Form::close() }}
 

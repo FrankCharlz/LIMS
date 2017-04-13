@@ -5,7 +5,6 @@
     <div class="container-fluid">
         <div class="row">
 
-            {{-- if user kalogin --}}
             @include('menu') {{-- side nav is col-md-3 --}}
 
             <div class="col-md-9">

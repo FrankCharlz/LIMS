@@ -25,11 +25,34 @@ Route::get('/home', 'HomeController@index');
 
 
 Route::get('/plots/add/{lat}/{lng}', 'PlotsController@add');
+Route::get('/plots/view/{id}', 'PlotsController@view');
 Route::get('api/plots', 'PlotsController@all');
 
 
 Route::post('/plots/new', 'PlotsController@new_plot');
 
-
+\
 //applications
+Route::get('/applications/user/{uid}', 'ApplicationController@listForUser');
+Route::get('/applications/all', 'ApplicationController@listAll');
 Route::get('/applications/add', 'ApplicationController@create_view');
+
+Route::get('/outis/images/{filename}', function ($filename) {
+
+    //filename = /images/....png
+    $path = storage_path('app/images/' . $filename);
+
+    //dd($path);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
+});
