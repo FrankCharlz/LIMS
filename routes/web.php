@@ -31,11 +31,12 @@ Route::get('api/plots', 'PlotsController@all');
 
 Route::post('/plots/new', 'PlotsController@new_plot');
 
-\
+
 //applications
 Route::get('/applications/user/{uid}', 'ApplicationController@listForUser');
 Route::get('/applications/all', 'ApplicationController@listAll');
 Route::get('/applications/add', 'ApplicationController@create_view');
+Route::get('/applications/cancel/{id}', 'ApplicationController@cancel');
 
 Route::get('/outis/images/{filename}', function ($filename) {
 

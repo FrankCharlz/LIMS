@@ -23,22 +23,22 @@
                     @foreach($applications as $application)
                         <?php $plot = \App\Plot::find($application['plot_id']); ?>
                         <tr>
-                            <td>{{ $application['application_id']}}</td>
+                            <td>{{ $application['id']}}</td>
                             <td>{{ $plot->plot_number }}</td>
                             <td>{{ $plot->db_owner_name() }}</td>
                             <td>{{ $application['status'] or 'Pending'}}</td>
                             <td>{{ $application['created_at'] }}</td>
-                            <td><i id="btn-del-app" class="fa fa-trash-o" aria-hidden="true"></i></td>
+                            <td><i data-id="{{$application['id']}}"
+                                   class="fa fa-trash-o btn-del-app" aria-hidden="true">
+                                </i>
+                            </td>
 
                         </tr>
                     @endforeach
 
                     </tbody>
                 </table>
-
-                <style>
-                </style>
-
+                <script type="text/javascript" src="{{ asset('/js/application.js') }}"></script>
 
             </div>
         </div>

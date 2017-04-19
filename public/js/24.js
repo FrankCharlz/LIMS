@@ -21,6 +21,23 @@ $(document).ready(function () {
 
     map.options.singleClickTimeout = 200;
 
+    var polygon = L.polygon(
+        [
+            [-6.8327951318749225, 39.28396046161652],
+            [-6.833418310632994, 39.28410530090333],
+            [-6.833354394900316, 39.2845344543457],
+            [-6.832715237103614, 39.284384250640876]
+        ],
+        {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 500
+        }
+    ).addTo(map);
+
+    console.log('added polygon');
+
 
 
     var popup = L.popup();

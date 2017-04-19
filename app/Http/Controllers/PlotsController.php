@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Certificate;
 use App\Location;
 use App\Plot;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class PlotsController extends Controller {
@@ -16,7 +18,11 @@ class PlotsController extends Controller {
 
 
     public function add($latitude, $longitude) {
+        $users = User::select(DB::raw('CONCAT(firstname, " ", othernames) as name, id'))->get()->toArray();
+        dd($users);
+
         return view('plot-add')
+            ->with('users', $users)
             ->with('lat', $latitude)
             ->with('lng', $longitude)
             ->with('success', false)

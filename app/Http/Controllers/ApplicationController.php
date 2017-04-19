@@ -38,8 +38,10 @@ class ApplicationController extends Controller {
         //
     }
 
-    public function update(Request $request, $id) {
-
+    public function cancel($id) {
+        $application = Application::find($id);
+        $application->status = 3; //status cancelled
+        $application->save();
     }
 
     public function listForUser($id) {

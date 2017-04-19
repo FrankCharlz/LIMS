@@ -9,8 +9,8 @@
                 <li class="m-list-group-item"><a href="#">Plots on sale</a></li>
             @elseif(Auth::user()->role_id == 0)
                 <li class="m-list-group-item"><a href="#">Search</a></li>
-                <li class="m-list-group-item"><a href="/applications/add">Sell my plots</a></li>
-                <li class="m-list-group-item"><a href="#">Plots on sale</a></li>
+                <li class="m-list-group-item"><a href="/applications/add">My plots</a></li>
+                <li class="m-list-group-item"><a href="/home?v=plots-on-sale">Plots on sale</a></li>
                 <li class="m-list-group-item"><a href="/applications/user/{{Auth::user()->id}}">View my applications</a></li>
             @elseif(Auth::user()->role_id == 1)
                 <li class="m-list-group-item"><a href="#">Manage plots</a></li>
