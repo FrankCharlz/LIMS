@@ -1,11 +1,24 @@
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
 .wapi, .coord {
     display: block;
     text-transform: capitalize;
+    font-size: 1.75rem;
+    margin: 0;
 }
+
+.coord {font-size: 1.5rem;}
 
 h4 {
     font-size: 2.7rem;
     font-weight: 300;
+    margin: 0;
+}
+
+
+.p-info {
+    font-family: 'Source Sans Pro', serif;
 }
 
 table {
@@ -25,12 +38,22 @@ tr > td:nth-child(1) {
     display: inline-table;
 }
 
-#btn-buy {
+.btn-buy {
     display: inline-block;
-    float: right;
     margin: -38px 2px 8px 0;
-    padding: auto 8px;
+    padding: auto 18px;
     background: #d9edf7;
+}
+
+.a-application {
+    margin-top: -40px;
+    padding: 8px 12px;
+    background: #ebf2f2;
+    border: 1px solid #c7c7c7;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-bottom: 6px;
+    color: black;
 }
 
 .maps div {

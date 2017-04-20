@@ -1,4 +1,5 @@
 /* Styles written here will override those in app.css upon conflict */
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
 .medium-menu a {
     padding: 4px auto;

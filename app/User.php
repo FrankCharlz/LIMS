@@ -31,5 +31,16 @@ class User extends Authenticatable
         return $this->hasOne(Role::class, 'role_id');
     }
 
+    public function hasAppliedFor($plot) {
+        $app = Application::where('plot_id', '=', $plot)
+            ->where('user_id', '=', $this->id)
+            ->select('created_at')
+            ->limit(1)
+            ->get()
+            ->toArray(); //todo: do this the model way
+
+        return $app;
+
+    }
 
 }

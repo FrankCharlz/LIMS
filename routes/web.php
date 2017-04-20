@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/demo', function () {
+Route::get('/landing', function () {
     return view('welcome');
 });
 
@@ -24,12 +24,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 
-Route::get('/plots/add/{lat}/{lng}', 'PlotsController@add');
+Route::get('/plots/add/{lat}/{lng}', 'PlotsController@add')->middleware('auth');
+Route::post('/plots/new', 'PlotsController@new_plot')->middleware('auth');
+
 Route::get('/plots/view/{id}', 'PlotsController@view');
 Route::get('/plots/all', 'PlotsController@all');
-
-
-Route::post('/plots/new', 'PlotsController@new_plot');
 
 
 //applications

@@ -4,11 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Plot extends Model
-{
-
-    protected $table  = 'plot';
-    protected  $primaryKey = 'plot_id';
+class Plot extends Model {
 
     public $timestamps = false;
 

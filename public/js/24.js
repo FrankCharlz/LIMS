@@ -9,11 +9,13 @@ var redCircle = {
 };
 
 var greenCircle = {
-    color: 'red',
-    fillColor: 'red',
+    color: '#3fff98',
+    fillColor: '#8effa8',
     fillOpacity: opacity,
     radius: radius
 };
+
+var colors = [redCircle, greenCircle];
 
 
 $(document).ready(function () {
@@ -65,14 +67,13 @@ $(document).ready(function () {
             maxZoom: 20,
             maxNativeZoom: 18 //to zoom beyond native
         }
-        ).addTo(map);
+    ).addTo(map);
 
     /* end of map codes */
     $('#btn-show-plots').click(function () {
 
         $.get( "/plots/all", function(data) {
             console.log('got plots:'+ data.length);
-            var popup = L.popup(); //init popup
 
             for (var i = 0; i<data.length; i++) {
 
@@ -83,12 +84,14 @@ $(document).ready(function () {
 
                 boundaries = JSON.parse(boundaries);
                 console.log(boundaries);
+                var color_index = parseInt(data[i]['status_id']) % colors.length; //todo: dejangalize here
 
-                var plot = L.polygon(boundaries, redCircle).addTo(map);
+                var plot = L.polygon(boundaries, colors[color_index]).addTo(map);
 
 
+                var popup = L.popup(); //init popup
                 popup.setContent('<h4>Plot '+data[i].plot_number+'</h4><br>'
-                    +"<br><a href=plots/view/"+data[i].plot_id+">View plot information</a>"
+                    +"<br><a href=plots/view/"+data[i].id+">View plot information</a>"
                 );
 
                 plot.bindPopup(popup);

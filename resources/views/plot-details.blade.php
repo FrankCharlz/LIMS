@@ -8,13 +8,36 @@
             @include('menu') {{-- side nav is col-md-3 --}}
 
             <div class="col-md-9">
-
-                <h4>Plot No. {{$plot->plot_number}}</h4>
-                <span class="wapi">{{ $wapi }}</span>
-                <div>
+                <div class="p-info">
+                    <h4>Plot {{$plot->plot_number}}</h4>
+                    <span class="wapi">{{ $wapi }}</span>
                     <span class="coord">Location: <a href="#"> {{$plot->latitude}}, {{$plot->longitude}}</a></span>
-                    <button id="btn-buy" class="btn btn-default"><i class="fa fa-usd" aria-hidden="true"></i> Buy this Plot</button>
+
+                    @php
+                        if (Auth::guest()) $apps = []; //set size of apps to zero for non
+                        else $apps = Auth::user()->hasAppliedFor($plot->id)
+                    @endphp
+
+                    @if(sizeof($apps) > 0)
+                        <span class="pull-right a-application">
+                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                You made an application for this plot on <b>{{ $apps[0]['created_at'] }}</b>
+                            </span>
+                    @else
+
+                        <button id="btn-buy" class="btn btn-default btn-buy pull-right">
+                            @if(Auth::guest())
+                                <b style="color: red;">You have to login to buy land</b>
+                            @else
+                                Buy this Plot
+                            @endif
+                        </button>
+                    @endif
+
+
                 </div>
+
+
 
 
                 <table class="table table-responsive">
@@ -26,8 +49,8 @@
 
                     <tr>
                         <?php
-                            $owner = \App\User::find($plot->owner_id); //todo: optimize this, get required fields only
-                            $owner_name = $owner->firstname. ' '.$owner->othernames;
+                        $owner = \App\User::find($plot->owner_id); //todo: optimize this, get required fields only
+                        $owner_name = $owner->firstname. ' '.$owner->othernames;
                         ?>
                         <td>Owner name</td>
                         <td>{{ $owner_name }}</td>
@@ -46,7 +69,7 @@
 
                     <tr>
                         <td>Total area <i>(m<sup>2</sup>)</i></td>
-                        <td> - </td>
+                        <td style="font-family: 'Source Sans Pro', serif"> {{ $plot->area }} </td>
                     </tr>
 
                     <tr>
@@ -77,20 +100,23 @@
         </div>
     </div>
 
-    <div class="buy-popup-mask">
-        <div class="buy-popup-wrapper">
-            <div class="buy-popup-container" id="buy-popup-container">
-                <h3>Plot application confirmation</h3>
-                <p>Dear <b>{{ Auth::user()->firstname }}</b>, please confirm your application for this plot
-                    <b>Plot {{ $plot->plot_number }}</b>.
-                </p>
+    {{-- only prepare this if user is logged in --}}
+    @if(Auth::user())
+        <div class="buy-popup-mask">
+            <div class="buy-popup-wrapper">
+                <div class="buy-popup-container" id="buy-popup-container">
+                    <h3>Plot application confirmation</h3>
+                    <p>Dear <b>{{ Auth::user()->firstname }}</b>, please confirm your application for this plot
+                        <b>Plot {{ $plot->plot_number }}</b>.
+                    </p>
 
-                <button id="btn-buy-cancel" class="btn btn-danger">Cancel</button>
-                <button id="btn-buy-confirm" class="btn btn-success" data-pid="{{ $plot->plot_id }}">Confirm</button>
+                    <button id="btn-buy-cancel" class="btn btn-danger">Cancel</button>
+                    <button id="btn-buy-confirm" class="btn btn-success" data-pid="{{ $plot->id }}">Confirm</button>
 
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>

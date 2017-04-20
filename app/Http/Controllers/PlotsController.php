@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class PlotsController extends Controller {
 
     public function __construct() {
-        $this->middleware('auth');
+        //$this->middleware('auth'); //no need of login to view plots for example
     }
 
 
