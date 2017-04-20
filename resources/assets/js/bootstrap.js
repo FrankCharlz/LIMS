@@ -19,6 +19,7 @@ require('bootstrap-sass');
 
 window.Vue = require('vue');
 console.log(window.Vue);
+console.log('should have logged vue');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

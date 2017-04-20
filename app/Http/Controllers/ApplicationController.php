@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Application;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller {
 
@@ -21,8 +22,11 @@ class ApplicationController extends Controller {
         return view('app-add');
     }
 
-    public function create() {
-
+    public function create($pid) {
+        $application = new Application();
+        $application->plot_id = $pid;
+        $application->user_id = Auth::user()->id;
+        $application->save();
     }
 
     public function store(Request $request) {
@@ -31,10 +35,6 @@ class ApplicationController extends Controller {
 
 
     public function show($id) {
-        //
-    }
-
-    public function edit($id) {
         //
     }
 

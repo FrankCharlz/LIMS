@@ -25,8 +25,12 @@
                     <tbody>
 
                     <tr>
+                        <?php
+                            $owner = \App\User::find($plot->owner_id); //todo: optimize this, get required fields only
+                            $owner_name = $owner->firstname. ' '.$owner->othernames;
+                        ?>
                         <td>Owner name</td>
-                        <td>{{ $plot->owner_name }}</td>
+                        <td>{{ $owner_name }}</td>
                     </tr>
 
                     <tr>
@@ -75,14 +79,14 @@
 
     <div class="buy-popup-mask">
         <div class="buy-popup-wrapper">
-            <div class="buy-popup-container">
+            <div class="buy-popup-container" id="buy-popup-container">
                 <h3>Plot application confirmation</h3>
                 <p>Dear <b>{{ Auth::user()->firstname }}</b>, please confirm your application for this plot
                     <b>Plot {{ $plot->plot_number }}</b>.
                 </p>
 
                 <button id="btn-buy-cancel" class="btn btn-danger">Cancel</button>
-                <button id="btn-buy-confirm" class="btn btn-success">Confirm</button>
+                <button id="btn-buy-confirm" class="btn btn-success" data-pid="{{ $plot->plot_id }}">Confirm</button>
 
             </div>
         </div>

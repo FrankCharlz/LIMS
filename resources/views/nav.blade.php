@@ -45,6 +45,7 @@
                         <ul class="dropdown-menu medium-menu" role="menu">
                             <li><a href="#">Profile <B>({{ \App\Role::find(Auth::user()->role_id)->role_name }})</B></a></li>
                             <li><a href="#">Activity</a></li>
+                            <li><a href="#">Help</a></li>
 
                             <li>
                                 <a href="{{ route('logout') }}"

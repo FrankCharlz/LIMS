@@ -13,16 +13,16 @@ $(document).ready(function () {
     });
 
     $('#btn-buy-confirm').click(function () {
+        var pid = this.attributes['data-pid'].value;
+
         $.ajax({
-            url: '/application/create/uid/pid',
+            url: '/applications/create/'+pid,
             data: {},
-            success: null,
+            success: function () {buyPopupMask.fadeOut();},
             dataType: null,
-            done: function () {buyPopupMask.fadeOut();}
+            done:null
         });
+
     });
-
-
-
 
 });
