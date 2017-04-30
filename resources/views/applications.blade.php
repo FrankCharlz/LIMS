@@ -7,7 +7,9 @@
             @include('menu') {{-- side nav is col-md-3 --}}
 
             <div class="col-md-9">
-                <h3>List of my land applications</h3>
+                <h2>List of my land applications, {{ sizeof($applications) }}</h2>
+                <hr>
+
                 <table class="table table-responsive table-hover">
                     <thead>
                     <tr>

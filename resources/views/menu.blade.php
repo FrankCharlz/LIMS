@@ -2,16 +2,16 @@
     <div class="m-list-group">
         <ul class="nav-mj">
             <li class="m-list-group-item"><a href="/home"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
-            <li class="m-list-group-item"><a href="/home">Announcements</a></li>
+            <li class="m-list-group-item"><a href="/announcements">Announcements</a></li>
 
             @if(Auth::guest())
-                <li class="m-list-group-item"><a href="#">Search for a plot **</a></li>
-                <li class="m-list-group-item"><a href="#">Plots on sale</a></li>
+                <li class="m-list-group-item"><a href="#">Search</a></li>
+                <li class="m-list-group-item"><a href="/plots/on-sale">Plots on sale</a></li>
             @elseif(Auth::user()->role_id == 0)
                 <li class="m-list-group-item"><a href="#">Search</a></li>
-                <li class="m-list-group-item"><a href="/applications/add">My plots</a></li>
-                <li class="m-list-group-item"><a href="/home?v=plots-on-sale">Plots on sale</a></li>
-                <li class="m-list-group-item"><a href="/applications/user/{{Auth::user()->id}}">View my applications</a></li>
+                <li class="m-list-group-item"><a href="/plots">My plots</a></li>
+                <li class="m-list-group-item"><a href="/plots/on-sale">Plots on sale</a></li>
+                <li class="m-list-group-item"><a href="/applications">My land applications</a></li>
             @elseif(Auth::user()->role_id == 1)
                 <li class="m-list-group-item"><a href="#">Manage plots</a></li>
                 <li class="m-list-group-item"><a href="/applications/all">Manage land applications</a></li>

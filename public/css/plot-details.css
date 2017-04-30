@@ -38,7 +38,7 @@ tr > td:nth-child(1) {
     display: inline-table;
 }
 
-.btn-buy {
+.btn-plot-actions {
     display: inline-block;
     margin: -38px 2px 8px 0;
     padding: auto 18px;

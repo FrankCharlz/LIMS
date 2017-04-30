@@ -44,8 +44,9 @@ class ApplicationController extends Controller {
         $application->save();
     }
 
-    public function listForUser($id) {
-        $applications = User::find($id)->applications;
+    public function listForUser() {
+        //dd(Auth::id());
+        $applications = User::find(Auth::id())->applications;
         return view('applications')->with('applications', $applications);
     }
 

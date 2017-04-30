@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //for ($a =0; $a < 100; $a++)
-        $this->call(PlotTableSeeder::class);
+        //for ($a =0; $a < 10; $a++)
+        $this->call(AnnouncementsTableSeeder::class);
     }
 }

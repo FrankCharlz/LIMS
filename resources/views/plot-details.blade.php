@@ -24,14 +24,19 @@
                                 You made an application for this plot on <b>{{ $apps[0]['created_at'] }}</b>
                             </span>
                     @else
-
-                        <button id="btn-buy" class="btn btn-default btn-buy pull-right">
-                            @if(Auth::guest())
-                                <b style="color: red;">You have to login to buy land</b>
-                            @else
+                        @if(Auth::guest())
+                            <button id="btn-login-to-buy" class="btn btn-default btn-plot-actions pull-right">
+                                Login to buy this plot
+                            </button>
+                        @elseif(Auth::id() === $plot->owner_id)
+                            <button id="btn-sell" class="btn btn-default btn-plot-actions pull-right">
+                                Put on Sale
+                            </button>
+                        @else
+                            <button id="btn-buy" class="btn btn-default btn-plot-actions pull-right">
                                 Buy this Plot
-                            @endif
-                        </button>
+                            </button>
+                        @endif
                     @endif
 
 

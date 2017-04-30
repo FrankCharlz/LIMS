@@ -1,9 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:300,400,600);/*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
-/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400');
 html {
     font-family: sans-serif;
     -ms-text-size-adjust: 100%;
@@ -15,9 +10,9 @@ body {
 }
 
 body {
-    font-family: Lato, sans-serif;
-    font-size: 14px;
-    line-height: 1.6;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
     color: #0d0d0d;
     background-color: #fdfffa;
 }
@@ -6284,7 +6279,7 @@ button.close {
     position: absolute;
     z-index: 1070;
     display: block;
-    font-family: Lato,sans-serif;
+    font-family: 'Source Sans Pro',sans-serif;
     font-style: normal;
     font-weight: 400;
     letter-spacing: normal;
@@ -6417,7 +6412,7 @@ button.close {
     display: none;
     max-width: 276px;
     padding: 1px;
-    font-family: Lato,sans-serif;
+    font-family: 'Source Sans Pro',sans-serif;
     font-style: normal;
     font-weight: 400;
     letter-spacing: normal;

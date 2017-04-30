@@ -7,6 +7,7 @@ use App\Location;
 use App\Plot;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
@@ -28,6 +29,17 @@ class PlotsController extends Controller {
             ->with('success', false)
             ->with('fresh', true);
     }
+
+    public function plotsForUser() {
+        $plots = Plot::where('owner_id', Auth::id())->get();
+        return view('plots')->with('plots', $plots);
+    }
+
+    public function listOnSale() {
+        $plots = Plot::where('status_id', 1)->get();
+        return view('plots-on-sale')->with('plots', $plots);
+    }
+
 
     public function view($id) {
         $plot = Plot::find($id);

@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Announcement;
 use Illuminate\Http\Request;
 
-class AnnouncementController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+class AnnouncementController extends Controller {
+
+    public function index() {
+        $announcements = Announcement::orderBy('id', 'DESC')->paginate(5);
+        return view('announcements')->with('announcements', $announcements);
     }
 
     /**
@@ -21,8 +17,7 @@ class AnnouncementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
