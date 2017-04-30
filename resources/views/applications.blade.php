@@ -15,6 +15,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Plot number</th>
+                        <th>Location</th>
                         <th>Owner's name</th>
                         <th>Status</th>
                         <th>Date</th>
@@ -23,10 +24,11 @@
                     </thead>
                     <tbody>
                     @foreach($applications as $application)
-                        <?php $plot = \App\Plot::find($application['plot_id']); ?>
+                        @php( $plot = \App\Plot::find($application['plot_id']) )
                         <tr>
                             <td>{{ $application['id']}}</td>
                             <td>{{ $plot->plot_number }}</td>
+                            <td>{{ $plot->wapi() }}</td>
                             <td>{{ $plot->db_owner_name() }}</td>
                             <td>{{ $application['status'] or 'Pending'}}</td>
                             <td>{{ $application['created_at'] }}</td>
@@ -41,10 +43,15 @@
                     </tbody>
                 </table>
                 <script type="text/javascript" src="{{ asset('/js/application.js') }}"></script>
-
             </div>
         </div>
     </div>
 
+@endsection
 
+
+@section('custom-css')
+    <style>
+        td {text-transform: capitalize;}
+    </style>
 @endsection
