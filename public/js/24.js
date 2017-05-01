@@ -47,9 +47,11 @@ $(document).ready(function () {
 
         var latlng = lat.toString()+'/'+lng.toString();
 
-        var content = "<h4>Latitude: "+lat+'<br>Longitude: '+lng
-            +"</h4><br><a href=plots/add/"+latlng+">Add plot information to database</a>"
-            +"<br><a href=plots/view/"+latlng+">View plot information</a>";
+        var custom_content = document.getElementById('custom-popup-content').outerHTML;
+        custom_content = custom_content.replace('__LATLANG', latlng);
+        console.log(custom_content);
+
+        var content = "<h4>Latitude: "+lat+'<br>Longitude: '+lng +"</h4>"+ custom_content;
 
         popup
             .setLatLng(e.latlng)

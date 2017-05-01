@@ -16,6 +16,23 @@
 
             </div>
         </div>
+
+        <div id="custom-popup-content">
+            <ul>
+                @if(Auth::user()->role_id > 0)
+                    <li>
+                        <a href=/plots/add/__LATLANG>
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            Add plot information to database
+                        </a>
+                    </li>
+                @endif
+                <li>
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    Copy coordinates to clipboard
+                </li>
+            </ul>
+        </div>
     </div>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
@@ -25,19 +42,52 @@
 
 
 @endsection
-<style type="text/css">
-    .leaflet-popup-content-wrapper, .leaflet-popup-tip {
-        background: white;
-        color: #b21111!important;
-        box-shadow: 0 3px 14px rgba(0,0,0,0.4);
-        border-radius: 0!important;
-        font-family: monospace;
-    }
+@section('custom-css')
+    <style type="text/css">
+        .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+            background: white;
+            box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+            border-radius: 0!important;
+            font-family: 'Source Sans Pro', serif!important;
+        }
 
-    .leaflet-container a {
-        color: #0078A8;
-        font-size: 1.3rem!important;
-        font-family: Lato, Raleway, serif!important;
-    }
-</style>
+        .leaflet-popup-content-wrapper {
+            width: 400px!important;
+        }
+
+        .leaflet-popup-content {
+            min-width: 400px!important;
+        }
+
+        .leaflet-popup-close-button {
+            font-size: 3rem!important;
+            margin: 4px 10px!important;
+        }
+
+        #custom-popup-content {
+            padding: 12px;
+            color: #0d0d0d;
+            font-size: 16px;
+            border-top: 1px solid #918c8c;
+            width: 360px;   /** debug this **/
+        }
+
+        #custom-popup-content li {
+            display: inline-block;
+            cursor: hand;
+
+        }
+
+        #custom-popup-content  a  {
+            text-decoration: none;
+            color: #0d0d0d;
+        }
+
+        #custom-popup-content  li:hover {
+            color: #000;
+            border-bottom: 1px dotted #333;
+
+        }
+    </style>
+@endsection
 

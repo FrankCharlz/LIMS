@@ -52,7 +52,7 @@ class ApplicationController extends Controller {
 
     public function listAll() {
         $applications = Application::all();
-        return view('applications')->with('applications', $applications);
+        return view('applications-manage')->with('applications', $applications);
     }
 
 

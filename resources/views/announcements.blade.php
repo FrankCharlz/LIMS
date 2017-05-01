@@ -41,9 +41,18 @@
 @section('custom-css')
     <style type="text/css">
 
-        div.announcements { max-width: 79%;}
+        div.announcements {
+            /*font-family: calibri, lato, sans-serif;*/
+            /*max-width: 79%;*/
+        }
+
         article {
-            font-family: calibri, lato, sans-serif;
+            background: white;
+            display: inline-block;
+            width: 45%;
+            padding: 20px;
+            border: 1px solid #fff;
+            border-radius: 0;
         }
 
         span.author {
