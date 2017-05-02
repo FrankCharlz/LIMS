@@ -8,6 +8,15 @@
             @include('menu') {{-- side nav is col-md-3 --}}
 
             <div class="col-md-9">
+
+                @if(isset($justAdded))
+                    <div class="just-added">
+                        <b>Plot {{ $plot->plot_number }}</b> was added successfully.
+                        <a href="/plots/edit/{{ $plot->id }}">Edit details</a>
+                        <span id="sp-close">x</span>
+                    </div>
+                @endif
+
                 <div class="p-info">
                     <h4>Plot {{$plot->plot_number}}</h4>
                     <span class="wapi">{{ $wapi }}</span>
@@ -28,6 +37,10 @@
                             <button id="btn-login-to-buy" class="btn btn-default btn-plot-actions pull-right">
                                 Login to buy this plot
                             </button>
+                        @elseif((int)Auth::user()->role_id > 0)
+                            <button id="btn-edit" class="btn btn-default btn-plot-actions pull-right">
+                                Edit plot details
+                            </button>
                         @elseif(Auth::id() === $plot->owner_id)
                             <button id="btn-sell" class="btn btn-default btn-plot-actions pull-right">
                                 Put on Sale
@@ -41,9 +54,6 @@
 
 
                 </div>
-
-
-
 
                 <table class="table table-responsive">
                     <thead>
@@ -130,6 +140,12 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
+
+            //hide the div when someone clicks on the sp-close
+            $('span#sp-close').click(function () {
+                $('div.just-added').fadeOut();
+            });
+
             function initMap() {
 
                 var point = {
@@ -160,12 +176,50 @@
             }
 
             initMap();
+
         });
 
     </script>
 
     <script src="{{ asset('/js/plot.js') }}"></script>
-
     <link rel="stylesheet" href="{{ asset('css/plot-details.css') }}"/>
+
+@endsection
+
+@section('custom-css')
+    <style type="text/css">
+
+        div.just-added {
+            padding: 20px;
+            border-radius: 6px;
+            font-style: italic;
+            border: 1px solid #75958b;
+            background: #e5f6ed;
+            margin-bottom: 16px;
+        }
+
+        div.just-added a {
+            color: #0f8cd3;
+        }
+
+        span#sp-close {
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            font-style: normal;
+            font-family: cursive;
+            color: #03281f;
+            padding: 4px;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        span#sp-close:hover {
+            font-size: 2.2rem;
+        }
+
+
+
+    </style>
 
 @endsection

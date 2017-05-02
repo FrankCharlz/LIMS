@@ -17,22 +17,48 @@
             </div>
         </div>
 
-        <div id="custom-popup-content">
-            <ul>
-                @if(Auth::user()->role_id > 0)
+        <div style="display: none;">
+            <div id="custom-popup-content" class="custom-popup-content">
+                <ul>
+                    @if(Auth::user() && Auth::user()->role_id > 0)
+                        <li>
+                            <a href=/plots/add/__LATLANG>
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                Add plot information to database
+                            </a>
+                        </li>
+                    @endif
                     <li>
-                        <a href=/plots/add/__LATLANG>
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                            Add plot information to database
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        Copy coordinates to clipboard
+                    </li>
+                </ul>
+            </div>
+            <div id="custom-popup-content-2" class="custom-popup-content">
+                <ul>
+                    <li>
+                        <a href=/plots/view/__PLOT_ID>
+                            <i class="fa fa-edit" aria-hidden="true"></i>
+                            View this plot information
                         </a>
                     </li>
-                @endif
-                <li>
-                    <i class="fa fa-map-marker" aria-hidden="true"></i>
-                    Copy coordinates to clipboard
-                </li>
-            </ul>
+                    @if(Auth::user() && Auth::user()->role_id > 0)
+                        <li>
+                            <a href=/plots/edit/__PLOT_ID>
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                Edit this plot information
+                            </a>
+                        </li>
+                    @endif
+                    <li>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        Copy coordinates to clipboard
+                    </li>
+                </ul>
+            </div>
         </div>
+
+
     </div>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
@@ -64,7 +90,7 @@
             margin: 4px 10px!important;
         }
 
-        #custom-popup-content {
+        div.custom-popup-content {
             padding: 12px;
             color: #0d0d0d;
             font-size: 16px;
@@ -72,18 +98,18 @@
             width: 360px;   /** debug this **/
         }
 
-        #custom-popup-content li {
+        div.custom-popup-content li {
             display: inline-block;
             cursor: hand;
 
         }
 
-        #custom-popup-content  a  {
+        div.custom-popup-content  a  {
             text-decoration: none;
             color: #0d0d0d;
         }
 
-        #custom-popup-content  li:hover {
+        div.custom-popup-content  li:hover {
             color: #000;
             border-bottom: 1px dotted #333;
 

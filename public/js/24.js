@@ -32,13 +32,11 @@ $(document).ready(function () {
         ], redCircle
     ).addTo(map);
 
-    // for (var n = 0; n < polygons.length; n++) {
-    //     L.polygon(polygons[n], redCircle).addTo(map);
-    //     console.log("added : "+n);
-    // }
-    console.log('added polygon');
-
     var popup = L.popup();
+
+
+    var custom_content_1 = document.getElementById('custom-popup-content').outerHTML;
+    var custom_content_2 = document.getElementById('custom-popup-content-2').outerHTML;
 
     function mapClicked(e) {
 
@@ -47,8 +45,7 @@ $(document).ready(function () {
 
         var latlng = lat.toString()+'/'+lng.toString();
 
-        var custom_content = document.getElementById('custom-popup-content').outerHTML;
-        custom_content = custom_content.replace('__LATLANG', latlng);
+        var custom_content = custom_content_1.replace('__LATLANG', latlng);
         console.log(custom_content);
 
         var content = "<h4>Latitude: "+lat+'<br>Longitude: '+lng +"</h4>"+ custom_content;
@@ -92,9 +89,14 @@ $(document).ready(function () {
 
 
                 var popup = L.popup(); //init popup
-                popup.setContent('<h4>Plot '+data[i].plot_number+'</h4><br>'
-                    +"<br><a href=plots/view/"+data[i].id+">View plot information</a>"
-                );
+
+                var custom_content = custom_content_2
+                    .replace('__PLOT_ID', data[i].id)
+                    .replace('__PLOT_ID', data[i].id);
+
+                custom_content =  "<h4>Latitude: "+data[i].latitude+'<br>Longitude: '+data[i].longitude+"</h4>"+ custom_content;
+
+                popup.setContent(custom_content);
 
                 plot.bindPopup(popup);
 

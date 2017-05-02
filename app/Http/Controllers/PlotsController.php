@@ -19,15 +19,17 @@ class PlotsController extends Controller {
 
 
     public function add($latitude, $longitude) {
-        $users = User::select(DB::raw('CONCAT(firstname, " ", othernames) as name, id'))->get()->toArray();
-        dd($users);
+        $users = User::select('id', 'firstname', 'othernames')
+            ->orderBy('firstname', 'asc')
+            ->get()
+            ->toArray();
 
         return view('plot-add')
             ->with('users', $users)
             ->with('lat', $latitude)
-            ->with('lng', $longitude)
-            ->with('success', false)
-            ->with('fresh', true);
+            ->with('lng', $longitude);
+            //->with('addError', true)
+            //->with('error', 'An error occurred while adding plot');
     }
 
     public function plotsForUser() {
@@ -49,6 +51,7 @@ class PlotsController extends Controller {
         return view('plot-details')
             ->with('plot', $plot)
             ->with('cert', $cert)
+            //->with('justAdded', true)
             ->with('wapi', $wapi);
     }
 
@@ -58,19 +61,16 @@ class PlotsController extends Controller {
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
 
             $path = $request->image->store('images');
-
-            $this->addPlotToDb($request, $path);
+            $addedPlot = $this->addPlotToDb($request, $path);
 
         } else {
             return back()
                 ->with('success', false)
-                ->with('fresh', false)
                 ->with('error', 'Request has no image, or it was not uploaded successfully');
         }
 
-        return back()->with('success', true)->with('fresh', false);
+        return redirect('/plots/view/'.$addedPlot->id)->with('justAdded', true);
     }
-
 
 
     public function all() {
@@ -84,7 +84,8 @@ class PlotsController extends Controller {
         $certificate->save();
 
         $plot = new Plot();
-        $plot->owner_name = $request->owner;
+        $plot->owner_id = $request->owner;
+        $plot->area = $request->area;
         $plot->status_id = random_int(1, 3);
         $plot->block_id = random_int(1, 500);
         $plot->plot_number = random_int(1, 100);
@@ -92,6 +93,8 @@ class PlotsController extends Controller {
         $plot->longitude = $request->lng;
         $plot->certificate_id = $certificate->id;
         $plot->save();
+
+        return $plot;
 
     }
 
