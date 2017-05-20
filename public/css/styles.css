@@ -81,3 +81,13 @@ h3 { margin-top: 8px;}
 .form-control {
     border-radius: 0;
 }
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    padding: 36px;
+    font-size: 12px;
+    font-weight: 300;
+    font-family: sans-serif;
+    color: #9c9c9c;
+}

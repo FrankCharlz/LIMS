@@ -1,5 +1,7 @@
 <?php
 
+use App\Plot;
+
 Route::get('/', function () {
     return view('home');
 });
@@ -20,6 +22,10 @@ Route::post('/plots/new', 'PlotsController@new_plot')->middleware('auth');
 
 Route::get('/plots/view/{id}', 'PlotsController@view');
 Route::get('/plots/all', 'PlotsController@all');
+
+
+Route::get('/search', 'SearchController@index');
+Route::get('/search/r', 'SearchController@search');
 
 
 //applications
@@ -53,3 +59,7 @@ Route::get('/outis/images/{filename}', function ($filename) {
 });
 
 
+Route::get('/qq', function() {
+$plots = Plot::where('plot_number', 'LIKE', '%b%')->get();
+return $plots;
+});
