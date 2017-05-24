@@ -12,7 +12,22 @@
                 <div id="map" class="map" style="height: 500px;"></div>
                 {{-- styles for popup --}}
 
-                <button id="btn-show-plots" class="btn btn-default" style="margin: 12px 0">SHOW ON SALE</button>
+                <div class="status-color-codes">
+                    <div class="status reserved">
+                        <p></p>
+                        <span>Reserved</span>
+                    </div>
+
+                    <div class="status residential">
+                        <p></p>
+                        <span>Residential</span>
+                    </div>
+
+                    <div class="status institutional">
+                        <p></p>
+                        <span>Institutional</span>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -112,8 +127,25 @@
         div.custom-popup-content  li:hover {
             color: #000;
             border-bottom: 1px dotted #333;
+        }
+        .status-color-codes {
 
         }
+        .status {
+            display: inline-block;
+            border-top: 1px solid red;
+            box-sizing: border-box;
+            width: 33%;
+            margin: 12px 0;
+            padding: 4px;
+        }
+
+        .status > p {
+            padding: 16px;
+            margin: auto;
+            display: inline-flex;
+        }
+
     </style>
 @endsection
 

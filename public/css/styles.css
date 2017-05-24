@@ -59,16 +59,6 @@
 h3 { margin-top: 8px;}
 
 
-.btn-del-app {
-    font-size: 2rem;
-    color: #da4848;
-}
-
-.btn-del-app:hover {
-    font-weight: bold;
-}
-
-
 /*   stupid styles I override sheenzi!! */
 .panel-default {
     border-width: 0;

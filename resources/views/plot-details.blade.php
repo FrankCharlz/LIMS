@@ -17,40 +17,53 @@
                     </div>
                 @endif
 
-                <div class="p-info">
-                    <h4>Plot {{$plot->plot_number}}</h4>
-                    <span class="wapi">{{ $wapi }}</span>
-                    <span class="coord">Location: <a href="#"> {{$plot->latitude}}, {{$plot->longitude}}</a></span>
+                <div class="row p-info">
 
-                    @php
-                        if (Auth::guest()) $apps = []; //set size of apps to zero for non
-                        else $apps = Auth::user()->hasAppliedFor($plot->id)
-                    @endphp
+                    <div class="col-md-6 left">
+                        <h4>Plot {{$plot->plot_number}}</h4>
+                        <span class="wapi">{{ $wapi }}</span>
+                        <span class="coord">Location: <a href="#"> {{$plot->latitude}}, {{$plot->longitude}}</a></span>
+                    </div>
 
-                    @if(sizeof($apps) > 0)
-                        <span class="pull-right a-application">
+                    <div class="col-md-6 right">
+                        <div class="container-of-action-buttons">
+                            @php
+                                if (Auth::guest()) $apps = []; //set size of apps to zero for non
+                                else $apps = Auth::user()->hasAppliedFor($plot->id)
+                            @endphp
+
+                            @if(sizeof($apps) > 0)
+                                <div class="jdi7">
+                                    <span class="pull-right a-application-pay">Pay Now</span>
+                                    <span class="pull-right a-application-cancel">Cancel Application</span>
+                                </div>
+                                <span class="pull-right a-application">
                                 <i class="fa fa-check-circle-o" aria-hidden="true"></i>
                                 You made an application for this plot on <b>{{ $apps[0]['created_at'] }}</b>
                             </span>
-                    @else
-                        @if(Auth::guest())
-                            <button id="btn-login-to-buy" class="btn btn-default btn-plot-actions pull-right">
-                                Login to buy this plot
-                            </button>
-                        @elseif((int)Auth::user()->role_id > 0)
-                            <button id="btn-edit" class="btn btn-default btn-plot-actions pull-right">
-                                Edit plot details
-                            </button>
-                        @elseif(Auth::id() === $plot->owner_id)
-                            <button id="btn-sell" class="btn btn-default btn-plot-actions pull-right">
-                                Put on Sale
-                            </button>
-                        @else
-                            <button id="btn-buy" class="btn btn-default btn-plot-actions pull-right">
-                                Buy this Plot
-                            </button>
-                        @endif
-                    @endif
+
+                            @else
+                                @if(Auth::guest())
+                                    <a href="/plots/buy/{{$plot->id}}" role="button" id="btn-login-to-buy" class="btn btn-default btn-plot-actions pull-right">
+                                        Buy this plot
+                                    </a>
+                                @elseif((int)Auth::user()->role_id > 0)
+                                    <a href="/plots/{{$plot->id}}/edit" role="button" id="btn-edit" class="btn btn-default btn-plot-actions pull-right">
+                                        Edit plot details
+                                    </a>
+                                @elseif(Auth::id() === $plot->owner_id)
+                                    <a role="button" id="btn-sell" class="btn btn-default btn-plot-actions pull-right">
+                                        Sell this plot
+                                    </a>
+                                @else
+                                    <a href="/plots/buy/{{$plot->id}}" role="button" id="btn-buy" class="btn btn-default btn-plot-actions pull-right">
+                                        Buy this Plot
+                                    </a>
+                                @endif
+                            @endif
+
+                        </div>
+                    </div>
 
 
                 </div>
@@ -89,9 +102,8 @@
 
                     <tr>
                         <td>Certificate</td>
-                        <td class="cert"><img src="/outis/{{ $cert->path }}"></td>
+                        <td class="cert"><img src="/outis/{{ $plot->certificate->path }}"></td>
                     </tr>
-
                     <tr>
                         <td>Maps</td>
                         <td class="container-fluid maps">
@@ -189,6 +201,41 @@
 @section('custom-css')
     <style type="text/css">
 
+        .btn-plot-actions {
+            display: inline-block;
+            padding: auto 18px;
+            background: #d9edf7;
+        }
+
+        .a-application {
+            padding: 7px 12px;
+            background: #ebf2f2;
+            border: 1px solid #c7c7c7;
+            border-radius: 5px;
+            text-decoration: none;
+            color: black;cursor: pointer;
+        }
+
+
+        .a-application-cancel {
+            padding: 6px 12px;
+            background: #f3c1ce; border-radius: 5px;
+            border: 1px solid #ff2c52;
+            color: black;
+            margin: 0 0 4px 4px;cursor: pointer;
+        }
+
+
+        .a-application-pay {
+            padding: 6px 12px;
+            background: #ebf2f2;  border-radius: 5px;
+            border: 1px solid #c7c7c7;
+            color: black;
+            margin: 0 0 4px 4px;
+            cursor: pointer;
+        }
+
+
         div.just-added {
             padding: 20px;
             border-radius: 6px;
@@ -216,6 +263,17 @@
 
         span#sp-close:hover {
             font-size: 2.2rem;
+        }
+
+        .right {
+            position: relative;
+            min-height: 72px;
+        }
+
+        .container-of-action-buttons {
+            position: absolute;
+            bottom: 0;
+            right: 20px;
         }
 
 

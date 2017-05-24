@@ -25,4 +25,8 @@ $(document).ready(function () {
 
     });
 
+    $('#btn-buy, #btn-login-to-buy').click(function () {
+        window.location = '/buy'
+    });
+
 });

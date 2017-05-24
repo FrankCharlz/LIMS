@@ -25,15 +25,16 @@
                     <tbody>
                     @foreach($applications as $application)
                         @php( $plot = \App\Plot::find($application['plot_id']) )
-                        <tr>
+                        <tr class="tr-plot-link" data-href="/plots/view/{{$plot->id}}">
                             <td>{{ $application['id']}}</td>
                             <td>{{ $plot->plot_number }}</td>
                             <td>{{ $plot->wapi() }}</td>
                             <td>{{ $plot->db_owner_name() }}</td>
                             <td>{{ $application['status'] or 'Pending'}}</td>
                             <td>{{ $application['created_at'] }}</td>
-                            <td><i data-id="{{$application['id']}}"
-                                   class="fa fa-trash-o btn-del-app" aria-hidden="true">
+                            <td>
+                                <i data-id="{{$application['id']}}"
+                                   class="fa fa-ellipsis-h btn-options" aria-hidden="true">
                                 </i>
                             </td>
 
@@ -53,5 +54,16 @@
 @section('custom-css')
     <style>
         td {text-transform: capitalize;}
+
+        .btn-options {
+            font-size: 2.4rem!important;
+            padding: 0 12px;
+            color: #da4848;
+        }
+
+        .btn-options:hover {
+            font-weight: bold;
+        }
+
     </style>
 @endsection

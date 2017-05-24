@@ -16,11 +16,6 @@ h4 {
     margin: 0;
 }
 
-
-.p-info {
-    font-family: 'Source Sans Pro', serif;
-}
-
 table {
     margin-top: 8px;
 }
@@ -36,24 +31,6 @@ tr > td:nth-child(1) {
     width: 300px;
     margin: auto;
     display: inline-table;
-}
-
-.btn-plot-actions {
-    display: inline-block;
-    margin: -38px 2px 8px 0;
-    padding: auto 18px;
-    background: #d9edf7;
-}
-
-.a-application {
-    margin-top: -40px;
-    padding: 8px 12px;
-    background: #ebf2f2;
-    border: 1px solid #c7c7c7;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-bottom: 6px;
-    color: black;
 }
 
 .maps div {

@@ -32,6 +32,20 @@ class PlotsController extends Controller {
             //->with('error', 'An error occurred while adding plot');
     }
 
+    public function edit($id) {
+        $users = User::select('id', 'firstname', 'othernames')
+            ->orderBy('firstname', 'asc')
+            ->get()
+            ->toArray();
+
+        $plot = Plot::find($id);
+
+        return view('plot-edit')
+            ->with('plot', $plot)
+            ->with('users', $users);
+    }
+
+
     public function plotsForUser() {
         $plots = Plot::where('owner_id', Auth::id())->get();
         return view('plots')->with('plots', $plots);
@@ -42,16 +56,18 @@ class PlotsController extends Controller {
         return view('plots-on-sale')->with('plots', $plots);
     }
 
+    public function buy($id) {
+        $plot = Plot::find($id);
+        return view('plot-buy')->with('plot', $plot);
+    }
+
 
     public function view($id) {
         $plot = Plot::find($id);
-        $cert = $plot->certificate;
         $wapi = $plot->wapi();
 
         return view('plot-details')
             ->with('plot', $plot)
-            ->with('cert', $cert)
-            //->with('justAdded', true)
             ->with('wapi', $wapi);
     }
 
