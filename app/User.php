@@ -24,7 +24,7 @@ class User extends Authenticatable
 
 
     public function plots() {
-        return $this->hasMany(Plot::class, 'user_id');
+        return $this->hasMany(Plot::class, 'owner_id');
     }
 
     public function role() {

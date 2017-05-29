@@ -65,3 +65,13 @@ Route::get('/qq', function() {
 $plots = Plot::where('plot_number', 'LIKE', '%b%')->get();
 return $plots;
 });
+
+/***
+ *  code for android
+ */
+
+Route::post('/login/app', 'AppController@loginApp');
+Route::get('/app/user/{id}/plots', 'AppController@plots');
+Route::get('/app/plots/on-sale', 'AppController@plotsOnSale');
+Route::get('/app/announcements', 'AppController@announcements');
+Route::get('/app/user/{id}/applications', 'AppController@applications');
