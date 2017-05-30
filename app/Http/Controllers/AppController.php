@@ -30,7 +30,7 @@ class AppController extends Controller {
     }
 
     public function plots($id) {
-        return view('android.my_plots')->with('users', User::find($id)->plots);
+        return view('android.my_plots')->with('plots', User::find($id)->plots);
 
     }
 

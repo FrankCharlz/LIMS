@@ -59,7 +59,7 @@
                     </li>
                     @if(Auth::user() && Auth::user()->role_id > 0)
                         <li>
-                            <a href=/plots/edit/__PLOT_ID>
+                            <a href=/plots/__PLOT_ID/edit>
                                 <i class="fa fa-edit" aria-hidden="true"></i>
                                 Edit this plot information
                             </a>

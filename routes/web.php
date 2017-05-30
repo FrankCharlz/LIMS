@@ -38,8 +38,12 @@ Route::get('/applications/cancel/{id}', 'ApplicationController@cancel');
 
 //announcements
 Route::get('/announcements', 'AnnouncementController@index');
+Route::get('/announcements/create', 'AnnouncementController@create');
 
+//users
+Route::get('/users/manage', 'UserController@manage');
 
+//image server
 Route::get('/outis/images/{filename}', function ($filename) {
 
     //filename = /images/....png
