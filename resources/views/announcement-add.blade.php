@@ -14,8 +14,7 @@
                     <form class="form1" method="post" action="/announcements/create-post">
                         {{ csrf_field() }}
                         <div>
-                            <label for="heading">Heading:</label>
-                            <input id="heading" type="text" name="heading" required>
+                            <input id="heading" type="text" name="heading" placeholder="Heading" required autofocus>
                         </div>
 
 
@@ -53,11 +52,12 @@
         }
 
         .form1 div input {
-            margin: auto 12px;
+            margin: 4px 0;
             outline: none;
             border-width: 0;
-            border-bottom: 1px solid grey;
-            width: 80%;
+            border-bottom: 1px solid #d4d0d0;
+            width: 100%;
+            font-size: x-large;
         }
 
     </style>

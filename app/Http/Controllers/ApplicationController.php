@@ -40,7 +40,7 @@ class ApplicationController extends Controller {
 
     public function cancel($id) {
         $application = Application::find($id);
-        $application->status = 'CANCELED'; //status cancelled
+        $application->status = 1; //status cancelled
         $application->save();
     }
 

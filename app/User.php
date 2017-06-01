@@ -33,11 +33,18 @@ class User extends Authenticatable
 
     public function hasAppliedFor($plot) {
         $app = Application::where('plot_id', '=', $plot)
-            ->where('user_id', '=', $this->id)
-            ->select('created_at')
-            ->limit(1)
-            ->get()
-            ->toArray(); //todo: do this the model way
+            ->where('user_id', $this->id)
+            ->where('status', 0)
+            ->select('id', 'created_at')
+            ->limit(1);
+
+        //print_r($app->toSql());
+
+        $app = $app->get()->toArray(); //todo: do this the model way
+
+        //print_r($plot);
+        //print_r($this->id);
+        //dd($app);
 
         return $app;
 

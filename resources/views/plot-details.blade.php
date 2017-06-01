@@ -19,13 +19,17 @@
 
                 <div class="row p-info">
 
-                    <div class="col-md-6 left">
+                    <div class="col-md-4 left">
                         <h4>Plot {{$plot->plot_number}}</h4>
                         <span class="wapi">{{ $wapi }}</span>
-                        <span class="coord">Location: <a href="#"> {{$plot->latitude}}, {{$plot->longitude}}</a></span>
+                        <span class="coord">Location:
+                            <a href="/home?map={{ $plot->latitude.'+'.$plot->longitude }}">
+                                {{$plot->latitude}}, {{$plot->longitude}}
+                            </a>
+                        </span>
                     </div>
 
-                    <div class="col-md-6 right">
+                    <div class="col-md-8 right">
                         <div class="container-of-action-buttons">
                             @php
                                 if (Auth::guest()) $apps = []; //set size of apps to zero for non
@@ -33,11 +37,15 @@
                             @endphp
 
                             @if(sizeof($apps) > 0)
-                                <span class="pull-right a-application">
-                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>You made an application for this plot on
-                                    <b>{{ $apps[0]['created_at'] }}</b></span>
 
-                                <span class="pull-right a-application-cancel">Cancel Application</span>
+                                <button class="pull-right a-application-cancel" id="btn-app-cancel">
+                                    Cancel Application
+                                </button>
+
+                                <button class="pull-right a-application">
+                                    <i class="fa fa-check-circle-o" aria-hidden="true"></i> You made an application for this plot on
+                                    <b>{{ $apps[0]['created_at'] }}</b>
+                                </button>
 
                             @else
                                 @if(Auth::guest())
@@ -138,15 +146,12 @@
         <div class="buy-popup-mask">
             <div class="buy-popup-wrapper">
                 <div class="buy-popup-container" id="buy-popup-container">
-                    <h3>Plot application confirmation</h3>
-                    <p>Dear <b>{{ Auth::user()->firstname }}</b>, please confirm your application for this plot
-                        <b>Plot {{ $plot->plot_number }}</b>.
-                    </p>
-
-                    <p>If you click <b>confirm</b> this plot will be added to your land applicatons list, then you can pay later</p>
-
+                    <h3><b>Plot {{ $plot->plot_number }}</b> application confirmation</h3>
+                    <div id="message"></div>
                     <button id="btn-buy-cancel" class="btn btn-danger">Cancel</button>
-                    <button id="btn-buy-confirm" class="btn btn-success" data-pid="{{ $plot->id }}">Confirm</button>
+                    <button id="btn-buy-confirm" class="btn btn-success"
+                            data-aid="{{ (sizeof($apps) > 0) ? $apps[0]['id'] : 0 }}"
+                            data-pid="{{ $plot->id }}">Confirm</button>
 
                 </div>
             </div>
