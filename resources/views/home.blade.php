@@ -50,6 +50,7 @@
                 </ul>
             </div>
             <div id="custom-popup-content-2" class="custom-popup-content">
+                <h3 style="margin: 0 auto 4px;">Plot __PLOT_NO</h3>
                 <ul>
                     <li>
                         <a href=/plots/view/__PLOT_ID>

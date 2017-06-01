@@ -18,7 +18,11 @@ class Plot extends Model {
     }
 
     public function status() {
-        return $this->belongsTo(Status::class, 'status_id');
+        return $this->belongsTo(Status::class);
+    }
+
+    public function usage() {
+        return $this->belongsTo(Usage::class);
     }
 
 

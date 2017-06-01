@@ -96,8 +96,6 @@ $(document).ready(function () {
 
                 var boundaries = data[i]['boundaries'];
 
-                //console.log(data[i].latitude+ " : " + data[i].longitude);
-                //console.log(boundaries);
 
                 boundaries = JSON.parse(boundaries);
                 //console.log(boundaries);
@@ -110,6 +108,7 @@ $(document).ready(function () {
 
                 var custom_content = custom_content_2
                     .replaceAll('__PLOT_ID', data[i].id)
+                    .replaceAll('__PLOT_NO', data[i]['plot_number'])
                     .replaceAll('__LATLANG', (data[i].latitude+','+data[i].longitude));
 
                 custom_content =  "<h4>Latitude: "+data[i].latitude+'<br>Longitude: '+data[i].longitude+"</h4>"+ custom_content;

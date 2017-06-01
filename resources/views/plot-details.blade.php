@@ -33,19 +33,16 @@
                             @endphp
 
                             @if(sizeof($apps) > 0)
-                                <div class="jdi7">
-                                    <span class="pull-right a-application-pay">Pay Now</span>
-                                    <span class="pull-right a-application-cancel">Cancel Application</span>
-                                </div>
                                 <span class="pull-right a-application">
-                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                                You made an application for this plot on <b>{{ $apps[0]['created_at'] }}</b>
-                            </span>
+                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>You made an application for this plot on
+                                    <b>{{ $apps[0]['created_at'] }}</b></span>
+
+                                <span class="pull-right a-application-cancel">Cancel Application</span>
 
                             @else
                                 @if(Auth::guest())
-                                    <a href="/plots/buy/{{$plot->id}}" role="button" id="btn-login-to-buy" class="btn btn-default btn-plot-actions pull-right">
-                                        Buy this plot
+                                    <a href="/login" role="button" id="btn-login-to-buy" class="btn btn-default btn-plot-actions pull-right">
+                                        Login to buy this plot
                                     </a>
                                 @elseif((int)Auth::user()->role_id > 0)
                                     <button data-plotId="{{$plot->id}}" id="btn-delete" class="btn btn-default btn-plot-actions pull-right">
@@ -60,9 +57,9 @@
                                         Sell this plot
                                     </a>
                                 @else
-                                    <a href="/plots/buy/{{$plot->id}}" role="button" id="btn-buy" class="btn btn-default btn-plot-actions pull-right">
+                                    <button id="btn-buy" class="btn btn-default btn-plot-actions pull-right">
                                         Buy this Plot
-                                    </a>
+                                    </button>
                                 @endif
                             @endif
 
@@ -90,7 +87,12 @@
 
                     <tr>
                         <td>Status</td>
-                        <td>{{ $plot->status->status_description }}</td>
+                        <td>{{ $plot->status->name }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Usage</td>
+                        <td>{{ $plot->usage->name }}</td>
                     </tr>
 
                     <tr>
@@ -140,6 +142,8 @@
                     <p>Dear <b>{{ Auth::user()->firstname }}</b>, please confirm your application for this plot
                         <b>Plot {{ $plot->plot_number }}</b>.
                     </p>
+
+                    <p>If you click <b>confirm</b> this plot will be added to your land applicatons list, then you can pay later</p>
 
                     <button id="btn-buy-cancel" class="btn btn-danger">Cancel</button>
                     <button id="btn-buy-confirm" class="btn btn-success" data-pid="{{ $plot->id }}">Confirm</button>

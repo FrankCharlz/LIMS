@@ -4,13 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Status extends Model
+class Usage extends Model
 {
 
-
-    protected $table  = 'statusinfo';
+    protected $table  = 'land_usage';
 
     public $timestamps = false;
-
 
 }
