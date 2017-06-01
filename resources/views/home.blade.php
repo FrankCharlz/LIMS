@@ -43,7 +43,7 @@
                             </a>
                         </li>
                     @endif
-                    <li>
+                    <li onclick="copyToClipboard('__LATLANG')">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                         Copy coordinates to clipboard
                     </li>
@@ -65,7 +65,7 @@
                             </a>
                         </li>
                     @endif
-                    <li>
+                    <li onclick="copyToClipboard('__LATLANG')">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                         Copy coordinates to clipboard
                     </li>

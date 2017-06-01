@@ -48,6 +48,10 @@
                                         Buy this plot
                                     </a>
                                 @elseif((int)Auth::user()->role_id > 0)
+                                    <button data-plotId="{{$plot->id}}" id="btn-delete" class="btn btn-default btn-plot-actions pull-right">
+                                        Delete
+                                    </button>
+
                                     <a href="/plots/{{$plot->id}}/edit" role="button" id="btn-edit" class="btn btn-default btn-plot-actions pull-right">
                                         Edit plot details
                                     </a>

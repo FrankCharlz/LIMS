@@ -46,7 +46,7 @@
                                         {{ Form::text('plot-number', null, ['id'=>'plot-number', 'class' => 'form-control', 'required' => true]) }}
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     {{ Form::label('area', 'Area (sqr metres)', ['class' => 'col-md-4 control-label']) }}
                                     <div class="col-md-6">
@@ -58,8 +58,9 @@
                                 <div class="form-group">
                                     {{ Form::label('boundaries', 'Boundary coordinates', ['class' => 'col-md-4 control-label']) }}
                                     <div class="col-md-6">
+                                        <input type="hidden" id="boundaries" name="boundaries">
                                         <ul id="bound-ul"></ul>
-                                        <button class="btn pull-right" id="btn-add-bound">Add boundary</button>
+                                        <button class="btn" type="button" id="btn-add-bound">Add boundary</button>
                                     </div>
                                 </div>
 
@@ -79,27 +80,33 @@
                                     </div>
                                 </div>
 
-                                <?php
-                                $options = [
-                                    1 => 'On sale',
-                                    2 => 'Reserved',
-                                    3 => 'Conflict',
-                                    4 => 'Other',
-                                    5 => 'Normal'
-                                ];
-                                ?>
-
                                 <div class="form-group">
                                     {{ Form::label('status', 'Status', ['class' => 'col-md-4 control-label']) }}
                                     <div class="col-md-6">
-                                        {{ Form::select('status', $options, 5, ['class' => 'form-control', 'id' => 'status']) }}
+                                        <select name="status" id="status" class="form-control" required>
+                                            @foreach($statuses as $status)
+                                                <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    {{ Form::label('usage', 'usage', ['class' => 'col-md-4 control-label']) }}
+                                    <div class="col-md-6">
+                                        <select name="usage" id="usage" class="form-control" required>
+                                            @foreach($usages as $usage)
+                                                <option value="{{ $usage->id }}">{{ $usage->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     {{ Form::label('certificate', 'Upload plot certificate', ['class' => 'col-md-4 control-label']) }}
                                     <div class="col-md-6">
-                                        <input type="file" name="image" id="btn-cert" class="form-control btn" required/>
+                                        <input type="file" name="image" id="btn-cert" class="form-control btn pull-left" required/>
                                     </div>
                                 </div>
 
@@ -122,37 +129,6 @@
         </div>
 
     </div>
-
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-
-            $('#btn-submit').click(function () {
-                var cert_file = $('#btn-cert').val();
-
-                var area = $("input[name='area']").val();
-                console.log(parseFloat(area));
-
-                if (isNaN(parseFloat(area))) {
-                    alert("The area you entered ["+area+"]is not in correct format");
-                    return false;
-                }
-
-                if (parseFloat(area) > 9999 || parseFloat(area) < 0) {
-                    alert("The area you entered ["+area+"] is out of range");
-                    return false;
-                }
-
-                if (cert_file == "") {
-                    alert("No photo is uploaded for the plot certificate. \nPlease select a photo");
-                    return false;
-                }
-            });
-
-        });
-    </script>
-
-
 @endsection
 
 
@@ -183,10 +159,24 @@
             margin: 8px 0;
         }
 
+        #bound-ul {
+            padding: 0;
+        }
+
         #bound-ul li input{
             /*border-width:  0 0 1px 0;*/
-
         }
+
+        .remove-li {
+            color: rgba(255, 0, 0, 0.73);
+            margin: 2px 6px;
+            font-size: 1.33em!important;
+        }
+
+        .remove-li:hover {
+            color: red;
+        }
+
 
 
 

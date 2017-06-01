@@ -24,12 +24,17 @@ class PlotsController extends Controller {
             ->get()
             ->toArray();
 
+        $statuses = DB::table('statusinfo')->select('id', 'name')->get();
+        $usages = DB::table('land_usage')->select('id', 'name')->get();
+
+
         return view('plot-add')
             ->with('users', $users)
+            ->with('statuses', $statuses)
+            ->with('usages', $usages)
             ->with('lat', $latitude)
             ->with('lng', $longitude);
-            //->with('addError', true)
-            //->with('error', 'An error occurred while adding plot');
+
     }
 
     public function edit($id) {
@@ -93,7 +98,7 @@ class PlotsController extends Controller {
         return Plot::all();
     }
 
-    private function addPlotToDb($request, $path) {
+    private function addPlotToDb(Request $request, $path) {
 
         $certificate = new Certificate();
         $certificate->path = $path;
@@ -102,11 +107,13 @@ class PlotsController extends Controller {
         $plot = new Plot();
         $plot->owner_id = $request->owner;
         $plot->area = $request->area;
-        $plot->status_id = random_int(1, 3);
-        $plot->block_id = random_int(1, 500);
-        $plot->plot_number = random_int(1, 100);
+        $plot->status_id = $request->get('status');
+        $plot->usage_id = $request->get('usage');
+        $plot->block_id = random_int(1, 50);
+        $plot->plot_number = $request->get('plot-number');
         $plot->latitude = $request->lat;
         $plot->longitude = $request->lng;
+        $plot->boundaries = $request->get('boundaries', null);
         $plot->certificate_id = $certificate->id;
         $plot->save();
 

@@ -17,7 +17,6 @@
                     <tr>
                         <th>Id</th>
                         <th>Plot number</th>
-                        <th>Block</th>
                         <th>Location</th>
                         <th>Geo-location</th>
                         <th>Area</th>
@@ -29,7 +28,6 @@
                             <tr class="tr-plot-link" data-href="/plots/view/{{$plot->id}}">
                                 <td>{{ $plot->id }}</td>
                                 <td>{{ $plot->plot_number }}</td>
-                                <td>{{ strtolower($plot->block->block_name) }}</td>
                                 <td>{{ $plot->wapi() }}</td>
                                 <td>{{ $plot->latitude }}, {{ $plot->longitude }}</td>
                                 <td>{{ $plot->area }}m<sup>2</sup></td>

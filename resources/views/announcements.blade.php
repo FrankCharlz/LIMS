@@ -11,10 +11,10 @@
                     @foreach($announcements as $announcement)
 
                         <article>
-                            <h3>{{ $announcement->title }} - {{ $announcement->id }}</h3>
+                            <h3>{{ $announcement->title }}</h3>
 
                             <section class="byline">
-                                by <span class="author" style="color: red;">{{ $announcement->authorFullName() }}</span>,
+                                by <span class="author">{{ $announcement->authorFullName() }}</span>,
                                 <span class="date">
                                 {{ date('F d, Y', strtotime($announcement->created_at)) }} at
                                     {{ date('H:m', strtotime($announcement->created_at)) }}
@@ -57,7 +57,7 @@
 
         span.author {
             font-weight: bold;
-            color: #1f648b;
+            color: #596794;
         }
         section.byline {
             font-style: italic;
