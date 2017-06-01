@@ -19,7 +19,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <!-- custom styles for this page goes here :below -->
-    @yield('custom-css', '<!-- apparently no more styles needed -->')
 
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -29,6 +28,9 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+
+
+    @yield('custom-css', '<!-- apparently no more styles needed -->')
 </head>
 <body>
 <div id="app">

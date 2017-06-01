@@ -1,21 +1,23 @@
 var radius = 16;
 var opacity = 0.5;
 
-var redCircle = {
-    color: '#f03',
-    fillColor: '#f03',
+var color1 = {
+    color: '#2980ff',
+    fillColor: '#4584ff',
     fillOpacity: opacity,
-    radius: radius
+    radius: radius,
+    weight: 1
 };
 
-var greenCircle = {
-    color: '#ff319f',
-    fillColor: '#ff1390',
+var color2 = {
+    color: '#1417ff',
+    fillColor: '#2f3bff',
     fillOpacity: opacity,
-    radius: radius
+    radius: radius,
+    weight: 1
 };
 
-var colors = [redCircle, greenCircle];
+var colors = [color1, color2];
 
 const DEFAULT_ZOOM = 14;
 const DEFAULT_CENTER = [-6.8512, 39.2544];
@@ -59,7 +61,7 @@ $(document).ready(function () {
     map.options.singleClickTimeout = 200;
 
 
-    //var popup = L.popup();
+    var popup = L.popup();
 
     function mapClicked(e) {
 

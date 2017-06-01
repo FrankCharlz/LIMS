@@ -41,11 +41,28 @@
                                 </div>
 
                                 <div class="form-group">
+                                    {{ Form::label('plot-number', 'Plot no', ['class' => 'col-md-4 control-label']) }}
+                                    <div class="col-md-6">
+                                        {{ Form::text('plot-number', null, ['id'=>'plot-number', 'class' => 'form-control', 'required' => true]) }}
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
                                     {{ Form::label('area', 'Area (sqr metres)', ['class' => 'col-md-4 control-label']) }}
                                     <div class="col-md-6">
                                         {{ Form::text('area', null, ['id'=>'area', 'class' => 'form-control', 'required' => true]) }}
                                     </div>
                                 </div>
+                                <hr>
+
+                                <div class="form-group">
+                                    {{ Form::label('boundaries', 'Boundary coordinates', ['class' => 'col-md-4 control-label']) }}
+                                    <div class="col-md-6">
+                                        <ul id="bound-ul"></ul>
+                                        <button class="btn pull-right" id="btn-add-bound">Add boundary</button>
+                                    </div>
+                                </div>
+
                                 <hr>
 
                                 <div class="form-group">
@@ -140,6 +157,7 @@
 
 
 @section('custom-css')
+    <script src="{{ asset('/js/plot-add.js') }}"></script>
     <style type="text/css">
         option {
             padding: 12px;
@@ -159,6 +177,18 @@
             border: 1px solid #f89b9b;
             background: #f6e5e5;
         }
+
+        #bound-ul li {
+            display: block;
+            margin: 8px 0;
+        }
+
+        #bound-ul li input{
+            /*border-width:  0 0 1px 0;*/
+
+        }
+
+
 
     </style>
 

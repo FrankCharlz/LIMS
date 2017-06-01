@@ -16,6 +16,7 @@
                         <th>Id</th>
                         <th>Plot number</th>
                         <th>Location</th>
+                        {{--<th>Applicants</th>--}}
                         <th>Owner's name</th>
                         <th>Status</th>
                         <th>Date</th>
@@ -30,6 +31,7 @@
                             <td>{{ $plot->plot_number }}</td>
                             <td>{{ $plot->wapi() }}</td>
                             <td>{{ $plot->db_owner_name() }}</td>
+                            {{--<td>{{ $application->applicantsNames()}}</td>--}}
                             <td>{{ $application['status'] or 'Pending'}}</td>
                             <td>{{ $application['created_at'] }}</td>
                             <td><i data-id="{{$application['id']}}"

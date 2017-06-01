@@ -39,11 +39,13 @@ class AppController extends Controller {
     }
 
     public function plotsOnSale() {
-        return Plot::where('status_id', 1)->get();
+        return view('android.plots-on-sale')->with('plots', Plot::where('status_id', 1)->get());
     }
 
     public function announcements() {
-        return Announcement::limit(12)->select('id', 'title', 'created_at')->get();
+        return view('android.announcements')
+            ->with('announcements',
+                Announcement::limit(12)->orderBy('id', 'desc')->select('id', 'title', 'created_at')->get());
     }
 
 

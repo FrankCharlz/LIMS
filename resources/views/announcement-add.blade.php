@@ -11,7 +11,8 @@
                 <hr>
 
                 <div class="m-editor">
-                    <form class="form1">
+                    <form class="form1" method="post" action="/announcements/create-post">
+                        {{ csrf_field() }}
                         <div>
                             <label for="heading">Heading:</label>
                             <input id="heading" type="text" name="heading" required>
