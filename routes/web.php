@@ -38,6 +38,7 @@ Route::get('/applications/cancel/{id}', 'ApplicationController@cancel');
 
 //announcements
 Route::get('/announcements', 'AnnouncementController@index');
+Route::get('/announcements/{id}', 'AnnouncementController@show');
 Route::get('/announcements/create', 'AnnouncementController@create')->middleware('auth');
 Route::post('/announcements/create-post', 'AnnouncementController@createPost');
 

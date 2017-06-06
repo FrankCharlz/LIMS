@@ -8,22 +8,25 @@
 
             <div class="col-md-9">
                 <div class="announcements">
-                    @foreach($announcements as $announcement)
+                    <ul>
+                        @foreach($announcements as $announcement)
+                            <li data-href="/announcements/{{ $announcement->id }}">
+                                <article>
+                                        <h3>{{ $announcement->title }}</h3>
 
-                        <article>
-                            <h3>{{ $announcement->title }}</h3>
+                                    <section class="byline">
+                                        by <span class="author">{{ $announcement->authorFullName() }}</span>,
+                                        <span class="date">{{ date('F d, Y H:m', strtotime($announcement->created_at)) }}</span>
+                                    </section>
 
-                            <section class="byline">
-                                by <span class="author">{{ $announcement->authorFullName() }}</span>,
-                                <span class="date">
-                                {{ date('F d, Y', strtotime($announcement->created_at)) }} at
-                                    {{ date('H:m', strtotime($announcement->created_at)) }}
-                                </span>
-                            </section>
-                            <section class="content"> {!! $announcement->content !!}</section>
+                                    <section class="phpcontent"> {!! substr(strip_tags($announcement->content), 0, 200) !!}</section>
 
-                        </article>
-                    @endforeach
+                                </article>
+
+                            </li>
+                        @endforeach
+
+                    </ul>
 
                 </div>
                 {{ $announcements->links() }}
@@ -39,6 +42,13 @@
 
 
 @section('custom-css')
+    <script>
+        $(document).ready(function () {
+            $('div.announcements li').click(function () {
+                window.location = $(this).data('href');
+            });
+        });
+    </script>
     <style type="text/css">
 
         div.announcements {
@@ -46,13 +56,18 @@
             /*max-width: 79%;*/
         }
 
-        article {
-            background: white;
+        div.announcements li {
             display: inline-block;
             width: 45%;
             padding: 20px;
             border: 1px solid #fff;
             border-radius: 0;
+            vertical-align: top;
+        }
+
+        div.announcements li:hover{
+            background: #f3f3f3;
+            cursor: pointer;
         }
 
         span.author {
@@ -68,6 +83,11 @@
         article > h3 {
             margin-bottom: 2px;
             font-size: 2.3em;
+        }
+
+        a.title-link {
+            text-decoration: none;
+            color: black;
         }
 
     </style>
