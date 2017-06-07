@@ -4,13 +4,14 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
     use Notifiable;
 
     protected $fillable = [
-        'username','firstname','othernames', 'email', 'password', 'phone'
+        'username','firstname','othernames', 'email', 'password', 'phone', 'type'
     ];
 
     protected $hidden = [
@@ -31,23 +32,22 @@ class User extends Authenticatable
         return $this->hasOne(Role::class, 'role_id');
     }
 
-    public function hasAppliedFor($plot) {
-        $app = Application::where('plot_id', '=', $plot)
+    public function isApplyingFor($plotId) {
+        $app = Application::where('plot_id', '=', $plotId)
             ->where('user_id', $this->id)
             ->where('status', 0)
             ->select('id', 'created_at')
-            ->limit(1);
+            ->limit(1)
+            ->get()
+            ->toArray();
 
-        //print_r($app->toSql());
+       return $app;
 
-        $app = $app->get()->toArray(); //todo: do this the model way
+    }
 
-        //print_r($plot);
-        //print_r($this->id);
-        //dd($app);
-
-        return $app;
-
+    public function owns($plot_id) {
+        $x =  sizeof(Plot::where('id', $plot_id)->where('owner_id', $this->id)->get()->toArray());
+        return $x;
     }
 
 }

@@ -25,7 +25,7 @@ class ApplicationController extends Controller {
     public function create($pid) {
         $application = new Application();
         $application->plot_id = $pid;
-        $application->user_id = Auth::user()->id;
+        $application->user_id = Auth::id();
         $application->save();
     }
 

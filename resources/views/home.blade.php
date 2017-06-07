@@ -13,20 +13,12 @@
                 {{-- styles for popup --}}
 
                 <div class="status-color-codes">
-                    <div class="status reserved">
-                        <p></p>
-                        <span>Reserved</span>
-                    </div>
-
-                    <div class="status residential">
-                        <p></p>
-                        <span>Residential</span>
-                    </div>
-
-                    <div class="status institutional">
-                        <p></p>
-                        <span>Institutional</span>
-                    </div>
+                    <span>Residential</span>
+                    <span>Institutional</span>
+                    <span>Open Space</span>
+                    <span>On Sale</span>
+                    <span>Conflict</span>
+                    <span>Show all</span>
                 </div>
 
             </div>
@@ -129,23 +121,13 @@
             color: #000;
             border-bottom: 1px dotted #333;
         }
-        .status-color-codes {
-
-        }
-        .status {
+        .status-color-codes  span {
             display: inline-block;
-            border-top: 1px solid red;
-            box-sizing: border-box;
-            width: 33%;
-            margin: 12px 0;
-            padding: 4px;
+            width: 16%;
+            margin: 4px auto;
+            border-bottom: 2px solid red;
         }
 
-        .status > p {
-            padding: 16px;
-            margin: auto;
-            display: inline-flex;
-        }
 
     </style>
 @endsection

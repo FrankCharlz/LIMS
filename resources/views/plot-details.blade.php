@@ -29,43 +29,44 @@
                         </span>
                     </div>
 
+                    @php
+                        //logic for sale buttons;
+                        $userOwnsIt = Auth::user() && Auth::user()->owns($plot->id);
+                        $userIsApplyingForIt = Auth::user() && !Auth::user()->owns($plot->id) && Auth::user()->isApplyingFor($plot->id);
+                    @endphp
+
                     <div class="col-md-8 right">
                         <div class="container-of-action-buttons">
-                            @php
-                                if (Auth::guest()) $apps = []; //set size of apps to zero for non
-                                else $apps = Auth::user()->hasAppliedFor($plot->id)
-                            @endphp
 
-                            @if(sizeof($apps) > 0)
+                            @if($userIsApplyingForIt)
 
-                                <button class="pull-right a-application-cancel" id="btn-app-cancel">
+                                <button class="pull-right a-application-cancel" id="btn-cancel-application">
                                     Cancel Application
                                 </button>
 
                                 <button class="pull-right a-application">
                                     <i class="fa fa-check-circle-o" aria-hidden="true"></i> You made an application for this plot on
-                                    <b>{{ $apps[0]['created_at'] }}</b>
+                                    <b>{{ Auth::user()->isApplyingFor($plot->id)[0]['created_at'] }}</b>
                                 </button>
-
                             @else
                                 @if(Auth::guest())
                                     <a href="/login" role="button" id="btn-login-to-buy" class="btn btn-default btn-plot-actions pull-right">
                                         Login to buy this plot
                                     </a>
                                 @elseif((int)Auth::user()->role_id > 0)
-                                    <button data-plotId="{{$plot->id}}" id="btn-delete" class="btn btn-default btn-plot-actions pull-right">
-                                        Delete
-                                    </button>
-
-                                    <a href="/plots/{{$plot->id}}/edit" role="button" id="btn-edit" class="btn btn-default btn-plot-actions pull-right">
+                                    <a href="/plots/{{$plot->id}}/edit" role="button" id="btn-edit-plot" class="btn btn-default btn-plot-actions pull-right">
                                         Edit plot details
                                     </a>
+                                @elseif(Auth::id() === $plot->owner_id && (int)$plot->status_id === 1)
+                                    <button id="btn-remove-from-sales" class="btn btn-default btn-plot-actions pull-right">
+                                        Remove from sales
+                                    </button>
                                 @elseif(Auth::id() === $plot->owner_id)
-                                    <a role="button" id="btn-sell" class="btn btn-default btn-plot-actions pull-right">
+                                    <button id="btn-sell-plot" class="btn btn-default btn-plot-actions pull-right">
                                         Sell this plot
-                                    </a>
+                                    </button>
                                 @else
-                                    <button id="btn-buy" class="btn btn-default btn-plot-actions pull-right">
+                                    <button id="btn-buy-plot" class="btn btn-default btn-plot-actions pull-right">
                                         Buy this Plot
                                     </button>
                                 @endif
@@ -73,8 +74,6 @@
 
                         </div>
                     </div>
-
-
                 </div>
 
                 <table class="table table-responsive">
@@ -134,77 +133,94 @@
                 <input type="hidden" id="lng" value="{{$plot->longitude}}">
 
 
-
-
             </div>
-
         </div>
     </div>
 
-    {{-- only prepare this if user is logged in --}}
-    @if(Auth::user())
+    @if($userIsApplyingForIt)
+        {{-- cancel application --}}
         <div class="buy-popup-mask">
             <div class="buy-popup-wrapper">
                 <div class="buy-popup-container" id="buy-popup-container">
-                    <h3><b>Plot {{ $plot->plot_number }}</b> application confirmation</h3>
-                    <div id="message"></div>
-                    <button id="btn-buy-cancel" class="btn btn-danger">Cancel</button>
-                    <button id="btn-buy-confirm" class="btn btn-success"
-                            data-aid="{{ (sizeof($apps) > 0) ? $apps[0]['id'] : 0 }}"
-                            data-pid="{{ $plot->id }}">Confirm</button>
+                    <h3><b>Plot {{ $plot->plot_number }}</b> application cancellation confirmation</h3>
+                    <div id="message">
+                        <p>Dear {{ Auth::user()->firstname }} Please confirm the <b>removal</b> of your application for this plot.</p>
+                        <p>If you click <b>confirm</b> your application for this plot will be cancelled.</p>
+                    </div>
+                    {{--@php(dd(Auth::user()->isApplyingFor($plot->id)))--}}
+                    <button id="btn-cancel" class="btn btn-danger">Cancel</button>
+                    <button id="btn-cancel-application-confirm" class="btn btn-success"
+                            data-aid="{{ Auth::user()->isApplyingFor($plot->id)[0]['id'] }}">
+                        Confirm
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    @elseif( $userOwnsIt && ((int)$plot->status_id === 1) /*plot on sale*/)
+        {{-- remove from sell --}}
+        <div class="buy-popup-mask">
+            <div class="buy-popup-wrapper">
+                <div class="buy-popup-container" id="buy-popup-container">
+                    <h3>Remove  <b> Plot {{ $plot->plot_number }}</b> from sales</h3>
+                    <div id="message">
+                        <p>Dear {{ Auth::user()->firstname }} Please confirm the <b>removal</b> of this plot from sale.</p>
+                        {{--<p>If you click <b>confirm</b> your application for this plot will be cancelled.</p>--}}
+                    </div>
+                    <button id="btn-cancel" class="btn btn-danger">Cancel</button>
+                    <button id="btn-remove-from-sales-confirm" class="btn btn-success"
+                            data-pid="{{ $plot->id }}">
+                        Confirm
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    @elseif($userOwnsIt)
+        {{-- put it on sale --}}
+        <div class="buy-popup-mask">
+            <div class="buy-popup-wrapper">
+                <div class="buy-popup-container" id="buy-popup-container">
+                    <h3><b>Plot {{ $plot->plot_number }}</b> sale confirmation</h3>
+                    <div id="message">
+                        <p>Dear {{ Auth::user()->firstname }} Please confirm the putting this plot on sale.</p>
+                    </div>
+                    <button id="btn-cancel" class="btn btn-danger">Cancel</button>
+                    <button id="btn-sell-plot-confirm" class="btn btn-success"
+                            data-pid="{{ $plot->id }}">
+                        Confirm
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    @else
+        {{-- put it on sale --}}
+        <div class="buy-popup-mask">
+            <div class="buy-popup-wrapper">
+                <div class="buy-popup-container" id="buy-popup-container">
+                    <h3><b>Plot {{ $plot->plot_number }}</b> buy confirmation</h3>
+                    <div id="message">
+                        <p>Dear {{ Auth::user()->firstname }} Please confirm buying this plot.</p>
+                        <p>If you click <b>confirm</b> this plot will be added to your land applications.</p>
+                    </div>
+                    <button id="btn-cancel" class="btn btn-danger">Cancel</button>
+                    <button id="btn-buy-plot-confirm" class="btn btn-success"
+                            data-pid="{{ $plot->id }}">
+                        Confirm
+                    </button>
 
                 </div>
             </div>
         </div>
     @endif
 
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByP5hKqYp0Y4HmBFYPkwB4Hdu9Yar6Vo8&callback=initMap">
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            //hide the div when someone clicks on the sp-close
-            $('span#sp-close').click(function () {
-                $('div.just-added').fadeOut();
-            });
-
-            function initMap() {
-
-                var point = {
-                    lat: parseFloat(document.getElementById('lat').value),
-                    lng: parseFloat(document.getElementById('lng').value)
-                };
-                var zoom = 20;
-
-                var gmap = new google.maps.Map(document.getElementById('gmap'), {
-                    zoom: zoom,
-                    center: point,
-                    mapTypeId: 'satellite',
-                    disableDefaultUI: true
-                });
-
-                var smap = L.map('smap').setView([ point.lat, point.lng], zoom);
-                L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy;<a href="http://osm.org/copyright">OpenStreetMap</a>'
-                }).addTo(smap);
-                smap.dragging.disable();
-                smap.touchZoom.disable();
-                smap.doubleClickZoom.disable();
-                smap.scrollWheelZoom.disable();
-                smap.boxZoom.disable();
-                smap.keyboard.disable();
-                if (smap.tap) smap.tap.disable();
-
-            }
-
-            initMap();
-
-        });
-
-    </script>
+    {{--<script async defer--}}
+    {{--src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByP5hKqYp0Y4HmBFYPkwB4Hdu9Yar6Vo8&callback=initMap">--}}
+    {{--</script>--}}
 
     <script src="{{ asset('/js/plot.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/plot-details.css') }}"/>

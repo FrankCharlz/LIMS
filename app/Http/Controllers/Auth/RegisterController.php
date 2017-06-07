@@ -50,6 +50,7 @@ class RegisterController extends Controller
             'fname' => 'required|max:60',
             'onames' => 'required|max:60',
             'username' => 'required|max:60|unique:users',
+            'utype' => 'required|max:100',
             'phone' => 'required|max:16',
             'email' => 'email|max:60|unique:users',
             'password' => 'required|min:6|confirmed',
@@ -65,6 +66,7 @@ class RegisterController extends Controller
     {
         return User::create([
             'username' => $data['username'],
+            'type' => $data['utype'],
             'firstname' => $data['fname'],
             'othernames' => $data['onames'],
             'phone' => $data['phone'],

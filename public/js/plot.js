@@ -1,47 +1,67 @@
-var confimMessage = "<p>Please confirm your application for this plot.</p><p>If you click <b>confirm</b> this plot will be added to your land applicatons list, then you can pay later</p>";
-var cancelMessage = "<p>Please confirm the <b>removal</b> of your application for this plot.</p><p>If you click <b>confirm</b> this application will be actively cancelled.</p>";
 
 $(document).ready(function () {
 
     var buyPopupMask = $('.buy-popup-mask');
 
-    $('#btn-buy').click(function () {
-        buyPopupMask.css('display', 'table');
-        $('#message').html(confimMessage);
-        buyPopupMask.fadeIn();
-    });
-
-    $('#btn-buy-cancel').click(function () {
+    $('#btn-cancel').click(function () {
         buyPopupMask.fadeOut();
     });
 
-    $('#btn-buy-confirm').click(function () {
-        var pid = this.attributes['data-pid'].value;
 
+    $('#btn-cancel-application, #btn-buy-plot, #btn-delete-plot, #btn-remove-from-sales, #btn-sell-plot').click(function () {
+        buyPopupMask.css('display', 'table');
+        buyPopupMask.fadeIn();
+    });
+
+
+    $('#btn-cancel-application-confirm').click(function () {
         var aid = this.attributes['data-aid'].value;
-        aid = parseInt(aid);
 
-        if (!isNaN(aid) && aid > 0) {
-            //valid application id means wants to cancel an application
-            $.ajax({
-                url: '/applications/cancel/'+aid,
-                data: {},
-                success: function () {buyPopupMask.fadeOut();},
-                dataType: null,
-                done:null
-            });
+        $.ajax({
+            url: '/applications/cancel/'+aid,
+            data: {},
+            success: function () {buyPopupMask.fadeOut(); window.location.reload(true);},
+            dataType: null,
+            done:null
+        });
 
-        } else {
-            // means wants to make an application
-            $.ajax({
-                url: '/applications/create/'+pid,
-                data: {},
-                success: function () {buyPopupMask.fadeOut();},
-                dataType: null,
-                done:null
-            });
-        }
+    });
 
+
+    $('#btn-buy-plot-confirm').click(function () {
+        var pid = this.attributes['data-pid'].value;
+        // means wants to make an application
+        $.ajax({
+            url: '/applications/create/'+pid,
+            data: {},
+            success: function () {buyPopupMask.fadeOut(); window.location.reload(true); },
+            dataType: null,
+            done:null
+        });
+    });
+
+
+    $('#btn-remove-from-sales-confirm').click(function () {
+        //and cancel all applications on the land
+        var pid = this.attributes['data-pid'].value;
+        $.ajax({
+            url: '/plots/'+pid+'/remove-on-sale',
+            data: {},
+            success: function () {buyPopupMask.fadeOut(); window.location.reload(true); },
+            dataType: null,
+            done:null
+        });
+    });
+
+    $('#btn-sell-plot-confirm').click(function () {
+        var pid = this.attributes['data-pid'].value;
+        $.ajax({
+            url: '/plots/'+pid+'/put-on-sale',
+            data: {},
+            success: function () {buyPopupMask.fadeOut(); window.location.reload(true); },
+            dataType: null,
+            done:null
+        });
 
 
     });
@@ -51,5 +71,44 @@ $(document).ready(function () {
         $('#message').html(cancelMessage);
         buyPopupMask.fadeIn();
     });
+
+
+    //hide the div when someone clicks on the sp-close
+    $('span#sp-close').click(function () {
+        $('div.just-added').fadeOut();
+    });
+
+
+    //initializing maps
+    function initMap() {
+
+        var point = {
+            lat: parseFloat(document.getElementById('lat').value),
+            lng: parseFloat(document.getElementById('lng').value)
+        };
+        var zoom = 20;
+
+        var gmap = new google.maps.Map(document.getElementById('gmap'), {
+            zoom: zoom,
+            center: point,
+            mapTypeId: 'satellite',
+            disableDefaultUI: true
+        });
+
+        var smap = L.map('smap').setView([ point.lat, point.lng], zoom);
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy;<a href="http://osm.org/copyright">OpenStreetMap</a>'
+        }).addTo(smap);
+        smap.dragging.disable();
+        smap.touchZoom.disable();
+        smap.doubleClickZoom.disable();
+        smap.scrollWheelZoom.disable();
+        smap.boxZoom.disable();
+        smap.keyboard.disable();
+        if (smap.tap) smap.tap.disable();
+
+    }
+
+    //initMap();
 
 });

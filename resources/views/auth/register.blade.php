@@ -88,6 +88,24 @@
 
                             <hr style="width: 64%; border: 1px solid #ededed;">
 
+                            <div class="form-group{{ $errors->has('utype') ? ' has-error' : '' }}">
+                                <label for="utype" class="col-md-4 control-label">User type</label>
+                                <div class="col-md-6">
+                                    <select id="utype" class="form-control" name="utype" required>
+                                        <option value="INDIVIDUAL">Individual</option>
+                                        <option value="ORGANIZATION">Organization</option>
+                                    </select>
+
+                                    @if ($errors->has('utype'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('utype') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <hr style="width: 64%; border: 1px solid #ededed;">
+
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <label for="password" class="col-md-4 control-label">Password</label>
                                 <div class="col-md-6">

@@ -21,6 +21,8 @@ Route::get('/plots/add/{lat}/{lng}', 'PlotsController@add')->middleware('auth');
 Route::post('/plots/new', 'PlotsController@new_plot')->middleware('auth');
 Route::get('/plots/buy/{id}', 'PlotsController@buy')->middleware('auth');
 Route::get('/plots/{id}/edit', 'PlotsController@edit')->middleware('auth');
+Route::get('/plots/{id}/remove-on-sale', 'PlotsController@removeOnSale')->middleware('auth');
+Route::get('/plots/{id}/put-on-sale', 'PlotsController@putOnSale')->middleware('auth');
 
 Route::get('/plots/view/{id}', 'PlotsController@view');
 Route::get('/plots/all', 'PlotsController@all');

@@ -50,6 +50,25 @@ class PlotsController extends Controller {
             ->with('users', $users);
     }
 
+    public function removeOnSale($pid) {
+        $plot = Plot::find($pid);
+        $plot->status_id = 0;
+        $plot->save();
+
+        //cancel all --PENDING applications on this plot
+        DB::table('applications')
+            ->where('plot_id', $pid)
+            ->where('status', 0)
+            ->update(['status' => 3]);
+    }
+
+    public function putOnSale($pid) {
+        $plot = Plot::find($pid);
+        $plot->status_id = 1;
+        $plot->save();
+
+    }
+
 
     public function plotsForUser() {
         $plots = Plot::where('owner_id', Auth::id())->get();
