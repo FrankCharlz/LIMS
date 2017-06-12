@@ -5,33 +5,30 @@
 
         <div class="row">
             <div class="col-md-12">
-                @foreach($plots as $plot)
+
+                @foreach($applications as $application)
+                    @php( $plot = \App\Plot::find($application['plot_id']) )
                     <div class="item">
                         <h3>Plot {{ $plot->plot_number }}</h3>
                         <div><span>Location:</span> {{ $plot->wapi() }}</div>
                         <div><span>Owner:</span> {{ $plot->db_owner_name() }}</div>
-                        <div><span>Coordinates:</span>{{ $plot->latitude }}, {{ $plot->longitude }}</div>
-                        <div><span>Date added:</span> {{ date('F d, Y H:m', strtotime($plot->created_at)) }}</div>
+                        <div><span>Status:</span> {{ $application['status'] }}</div>
+                        <div><span>Date:</span> {{ date('F d, Y H:m', strtotime($application->created_at)) }}</div>
                     </div>
                 @endforeach
 
+                <script type="text/javascript" src="{{ asset('/js/application.js') }}"></script>
             </div>
         </div>
     </div>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.span-map').click(new function () {
-                var url = $(thi).data('map');
-                Android.openMap(url);
-            });
-        });
-    </script>
+
 
 @endsection
 
+
 @section('custom-css')
-    <style type="text/css">
+    <style>
         div.item div {
             text-transform: capitalize;
             font-size: 1.4rem;
@@ -53,5 +50,7 @@
         .item div > span {
             font-weight: bold;
         }
+
+
     </style>
 @endsection

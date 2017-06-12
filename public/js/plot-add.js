@@ -20,7 +20,7 @@ $(document).ready(function () {
         console.log(parseFloat(area));
 
         if (isNaN(parseFloat(area))) {
-            alert("The area you entered ["+area+"]is not in correct format");
+            alert("The area you entered is not in correct format");
             return false;
         }
 

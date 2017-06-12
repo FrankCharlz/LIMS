@@ -18,6 +18,8 @@ class AppController extends Controller {
         $user = User::where('username', $username)->first();
 
         if ($user && Hash::check($password, $user->password)) {
+            $token = bin2hex(openssl_random_pseudo_bytes(12, $cstrong));
+            $user['token'] = $token;
             return response()->json([$user]);
         } else {
             return response()->json([]);
@@ -35,7 +37,7 @@ class AppController extends Controller {
     }
 
     public function applications($id) {
-        return User::find($id)->applications;
+        return view('android.applications')->with('applications',User::find($id)->applications);
     }
 
     public function plotsOnSale() {
@@ -45,7 +47,11 @@ class AppController extends Controller {
     public function announcements() {
         return view('android.announcements')
             ->with('announcements',
-                Announcement::limit(12)->orderBy('id', 'desc')->select('id', 'title', 'created_at')->get());
+                Announcement::limit(12)->orderBy('id', 'desc')->get());
+    }
+
+    public function show($id) {
+        return view('android.announcements-show')->with('announcement', Announcement::find($id));
     }
 
 
