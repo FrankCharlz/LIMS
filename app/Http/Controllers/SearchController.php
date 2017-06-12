@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Plot;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller {
 
@@ -22,14 +23,15 @@ class SearchController extends Controller {
 
         $plots = Plot::where('plot_number', 'LIKE', $search_term)->get();
 
-        $users = User::where('firstname', 'LIKE', $search_term)
-            ->where('othernames', 'LIKE', $search_term)
-            ->get();
 
-        $results = [$plots, $users];
+        $query = "SELECT * FROM (SELECT CONCAT(street_name,\" \", ward_name, \" \", district_name, \" \", region_name) AS 'location', street_id
+                  FROM vw_locations) AS ta WHERE ta.location LIKE ?";
 
-        dd($results);
+        $locations = DB::select($query, [$search_term]);
 
-        return view('search');
+        return view('search')
+            ->with('plots', $plots)
+            ->with('locations', $locations)
+            ->with('doneSearching', 1);
     }
 }

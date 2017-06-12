@@ -23,7 +23,7 @@
                         <h4>Plot {{$plot->plot_number}}</h4>
                         <span class="wapi">{{ $wapi }}</span>
                         <span class="coord">Location:
-                            <a href="/home?map={{ $plot->latitude.'+'.$plot->longitude }}">
+                            <a href="/home?point={{ $plot->latitude.'+'.$plot->longitude }}">
                                 {{$plot->latitude}}, {{$plot->longitude}}
                             </a>
                         </span>
@@ -201,7 +201,9 @@
                 <div class="buy-popup-container" id="buy-popup-container">
                     <h3><b>Plot {{ $plot->plot_number }}</b> buy confirmation</h3>
                     <div id="message">
-                        <p>Dear {{ Auth::user()->firstname }} Please confirm buying this plot.</p>
+                        @if(Auth::user())
+                            <p>Dear {{ Auth::user()->firstname }} Please confirm buying this plot.</p>
+                        @endif
                         <p>If you click <b>confirm</b> this plot will be added to your land applications.</p>
                     </div>
                     <button id="btn-cancel" class="btn btn-danger">Cancel</button>

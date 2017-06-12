@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class AnnouncementController extends Controller {
 
@@ -13,11 +14,6 @@ class AnnouncementController extends Controller {
         return view('announcements')->with('announcements', $announcements);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create() {
         return view('announcement-add');
     }

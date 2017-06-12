@@ -66,7 +66,12 @@ class PlotsController extends Controller {
         $plot = Plot::find($pid);
         $plot->status_id = 1;
         $plot->save();
+    }
 
+
+    public function manage() {
+        $plots = Plot::all();
+        return view('plots')->with('plots', $plots);
     }
 
 

@@ -26,6 +26,7 @@ Route::get('/plots/{id}/put-on-sale', 'PlotsController@putOnSale')->middleware('
 
 Route::get('/plots/view/{id}', 'PlotsController@view');
 Route::get('/plots/all', 'PlotsController@all');
+Route::get('/plots/manage', 'PlotsController@manage')->middleware('auth');
 
 
 Route::get('/search', 'SearchController@index');
@@ -40,12 +41,13 @@ Route::get('/applications/cancel/{id}', 'ApplicationController@cancel');
 
 //announcements
 Route::get('/announcements', 'AnnouncementController@index');
-Route::get('/announcements/{id}', 'AnnouncementController@show');
+Route::get('/announcements/{id}/show', 'AnnouncementController@show');
 Route::get('/announcements/create', 'AnnouncementController@create')->middleware('auth');
 Route::post('/announcements/create-post', 'AnnouncementController@createPost');
 
 //users
 Route::get('/users/manage', 'UserController@manage');
+Route::get('/users/voidily/{uid}', 'UserController@voidily');
 
 //image server
 Route::get('/outis/images/{filename}', function ($filename) {

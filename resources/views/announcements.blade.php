@@ -10,7 +10,7 @@
                 <div class="announcements">
                     <ul>
                         @foreach($announcements as $announcement)
-                            <li data-href="/announcements/{{ $announcement->id }}">
+                            <li data-href="/announcements/{{ $announcement->id }}/show">
                                 <article>
                                         <h3>{{ $announcement->title }}</h3>
 

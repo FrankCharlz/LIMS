@@ -25,18 +25,25 @@
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Date registered</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($users as $user)
-                            <tr>
-                                <td>{{ $user->id }}</td>
-                                <td class="td-name">{{ $user->firstname . ' '. $user->othernames }}</td>
-                                <td>{{ $user->role_id }}</td>
-                                <td style="color: #0f8cd3">{{ $user->email }}</td>
-                                <td>{{ $user->phone }}</td>
-                                <td>{{ $user->created_at }}</td>
-                            </tr>
+                        <tr>
+                            <td>{{ $user->id }}</td>
+                            <td class="td-name">{{ $user->firstname . ' '. $user->othernames }}</td>
+                            <td>{{ $user->role_id }}</td>
+                            <td style="color: #0f8cd3">{{ $user->email }}</td>
+                            <td>{{ $user->phone }}</td>
+                            <td>{{ $user->created_at }}</td>
+                            @php($btn_txt = ['Deactivate', 'Activate'])
+                            <td>
+                                <button class="btn btn-deactivate-user" data-uid="{{$user->id}}" data-voided="{{$user->voided}}">
+                                    {{ $btn_txt[(int)$user->voided] }}
+                                </button>
+                            </td>
+                        </tr>
                     @endforeach
 
                     </tbody>
@@ -52,12 +59,23 @@
 
             //make active tab active :)
             var t = $('#t').html();
-
             $('ul.nav-tabs li').each(function () {
                 if ($(this).first('a').html().includes(t)) {
                     $(this).addClass('active');
                     return false;
                 }
+            });
+
+            $('.btn-deactivate-user').click(function () {
+                //todo: add gmail like working banner
+                var uid = this.attributes['data-uid'].value;
+                $.ajax({
+                    url: '/users/voidily/'+uid,
+                    data: {},
+                    success: function () {window.location.reload(true); },
+                    dataType: null,
+                    done:null
+                });
             });
 
         });
@@ -69,5 +87,6 @@
 @section('custom-css')
     <style type="text/css">
         .td-name {text-transform: capitalize;}
+        .btn-deactivate-user {    padding: 1px 16px;}
     </style>
 @endsection

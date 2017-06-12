@@ -18,17 +18,27 @@ class UserController extends Controller {
         $type = $request->get('t', 'all');
 
         if ($type === 'managers') {
-            $users = User::where('role_id', 1)->get();
+            $users = User::where('role_id', 1)->where('voided', 0)->get();
         } else if ($type === 'admins') {
-            $users = User::where('role_id', 2)->get();
+            $users = User::where('role_id', 2)->where('voided', 0)->get();
         } else if ($type === 'users') {
-            $users = User::where('role_id', 0)->get();
+            $users = User::where('role_id', 0)->where('voided', 0)->get();
         } else if ($type === 'deactivated') {
-            $users = User::where('role_id', 3)->get();
+            $users = User::where('voided', 1)->get();
         } else {
-            $users = User::all();
+            $users = User::where('voided', 0)->get();
         }
 
         return view('users')->with('users', $users);
+    }
+
+    public function voidily($uid) {
+        //todo: url attack
+        $user = User::find($uid);
+
+        if ((int)$user->voided === 0) $user->voided = 1;
+        else $user->voided = 0;
+
+        $user->save();
     }
 }
