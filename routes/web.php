@@ -18,7 +18,10 @@ Route::get('/home', 'HomeController@index');
 Route::get('/plots', 'PlotsController@plotsForUser')->middleware('auth');
 Route::get('/plots/on-sale', 'PlotsController@listOnSale');
 Route::get('/plots/add/{lat}/{lng}', 'PlotsController@add')->middleware('auth');
+Route::get('/plots/add/scratch', 'PlotsController@addScratch')->middleware('auth');
+Route::get('/plots/add/batch', 'PlotsController@addBatch')->middleware('auth');
 Route::post('/plots/new', 'PlotsController@new_plot')->middleware('auth');
+Route::post('/plots/new-batch', 'PlotsController@new_plot_batch')->middleware('auth');
 Route::get('/plots/buy/{id}', 'PlotsController@buy')->middleware('auth');
 Route::get('/plots/{id}/edit', 'PlotsController@edit')->middleware('auth');
 Route::get('/plots/{id}/remove-on-sale', 'PlotsController@removeOnSale')->middleware('auth');
@@ -49,6 +52,9 @@ Route::post('/announcements/create-post', 'AnnouncementController@createPost');
 Route::get('/users/manage', 'UserController@manage');
 Route::get('/users/voidily/{uid}', 'UserController@voidily');
 
+Route::get('/reports', 'ReportsController@index');
+Route::get('/reports/applications/most-applied', 'ReportsController@applications');
+
 //image server
 Route::get('/outis/images/{filename}', function ($filename) {
 
@@ -72,8 +78,7 @@ Route::get('/outis/images/{filename}', function ($filename) {
 
 
 Route::get('/qq', function() {
-$plots = Plot::where('plot_number', 'LIKE', '%b%')->get();
-return $plots;
+
 });
 
 /***

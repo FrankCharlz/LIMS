@@ -26,17 +26,31 @@
 
                                 {{ csrf_field() }}
 
+                                <?php
+                                //when adding from scratch no lat or lng is supplied;
+                                $latLngOptions = ['class' => 'form-control ', 'id'=>'lat', 'required' => true];
+                                $fromScratch = !isset($lat);
+                                if ($fromScratch) {
+                                    $lat = '';
+                                    $lng = '';
+                                } else {
+                                    array_push($latLngOptions, 'readonly');
+                                }
+                                //print_r($fromScratch);
+                                //print_r($latLngOptions);
+                                ?>
+
                                 <div class="form-group">
                                     {{ Form::label('lat', 'Latitude', ['class' => 'col-md-4 control-label']) }}
                                     <div class="col-md-6">
-                                        {{ Form::text('lat', $lat, ['readonly' => true, 'class' => 'form-control ', 'id'=>'lat', 'required' => true]) }}
+                                        {{ Form::text('lat', $lat, $latLngOptions) }}
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     {{ Form::label('lng', 'Longitude', ['class' => 'col-md-4 control-label']) }}
                                     <div class="col-md-6">
-                                        {{ Form::text('lng', $lng, ['readonly' => true, 'id'=>'lng', 'class' => 'form-control', 'required' => true]) }}
+                                        {{ Form::text('lng', $lng, $latLngOptions) }}
                                     </div>
                                 </div>
 

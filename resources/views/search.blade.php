@@ -9,7 +9,7 @@
 
                 <form method="get" action="/search/r">
                     <p style="font-size: 2em; font-weight: 300;">
-                        Search for plots, areas, people, anything...
+                        Search for plots...
                     </p>
                     <input name="query" type="text" title="" placeholder="search here" autofocus>
                 </form>
@@ -25,7 +25,7 @@
                             @php($i = 1)
                             @foreach($plots as $plot)
                                 <div>{{ $i++ }}.
-                                    <a href="#home?v=plot&id={{$plot->id}}"> Plot {{ $plot->plot_number }}</a>
+                                    <a href="/plots/view/{{$plot->id}}"> Plot {{ $plot->plot_number }}</a>
                                 </div>
                             @endforeach
                         @endif

@@ -8,11 +8,15 @@
 
             <div class="col-md-9">
                 <div class="announcements">
+                    <h2 style="margin: 0 16px;
+    font-size: xx-large;
+    font-weight: 300;
+    color: #5b5b5b;">Announcements</h2><hr>
                     <ul>
                         @foreach($announcements as $announcement)
                             <li data-href="/announcements/{{ $announcement->id }}/show">
                                 <article>
-                                        <h3>{{ $announcement->title }}</h3>
+                                    <h3>{{ $announcement->title }}</h3>
 
                                     <section class="byline">
                                         by <span class="author">{{ $announcement->authorFullName() }}</span>,

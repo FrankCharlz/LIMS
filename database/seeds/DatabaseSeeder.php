@@ -9,9 +9,7 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-        //for ($a =0; $a < 10; $a++)
-        $this->call(AnnouncementsTableSeeder::class);
+    public function run() {
+        for ($a =0; $a < 50; $a++) $this->call(ApplicationTableSeeder::class);
     }
 }

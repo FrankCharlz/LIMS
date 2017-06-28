@@ -10,6 +10,8 @@
                 <h2>List of my land applications, {{ sizeof($applications) }}</h2>
                 <hr>
 
+                @php( $statuses = ['Pending', 'Cancelled', 'Deleted', 'Complete'])
+
                 <table class="table table-responsive table-hover">
                     <thead>
                     <tr>
@@ -18,7 +20,7 @@
                         <th>Location</th>
                         <th>Owner's name</th>
                         <th>Status</th>
-                        <th>Date</th>
+                        <th>Date applied</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -30,7 +32,7 @@
                             <td>{{ $plot->plot_number }}</td>
                             <td>{{ $plot->wapi() }}</td>
                             <td>{{ $plot->db_owner_name() }}</td>
-                            <td>{{ $application['status'] or 'Pending'}}</td>
+                            <td>{{ $statuses[$application['status']]}}</td>
                             <td>{{ $application['created_at'] }}</td>
                             <td>
                                 <i data-id="{{$application['id']}}"

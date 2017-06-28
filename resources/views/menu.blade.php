@@ -16,11 +16,13 @@
                 <li class="m-list-group-item"><a href="/plots/manage">Manage plots</a></li>
                 <li class="m-list-group-item"><a href="/applications/all">Manage land applications</a></li>
                 <li class="m-list-group-item"><a href="/announcements/create">Add announcement</a></li>
+                <li class="m-list-group-item"><a href="/reports">Statistical Reports</a></li>
             @elseif(Auth::user()->role_id == 2)
                 <li class="m-list-group-item"><a href="/plots/manage">Manage plots</a></li>
                 <li class="m-list-group-item"><a href="/users/manage">Manage users</a></li>
                 <li class="m-list-group-item"><a href="/applications/all">Manage land applications</a></li>
                 <li class="m-list-group-item"><a href="/announcements/create">Add announcement</a></li>
+                <li class="m-list-group-item"><a href="/reports">Statistical Reports</a></li>
             @else
                 <li class="m-list-group-item"><a href="#">Role not recognized by the system</a></li>
             @endif

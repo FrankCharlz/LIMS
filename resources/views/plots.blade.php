@@ -10,9 +10,8 @@
             <div class="col-md-9">
                 @if($isManagerOrAdmin)
                     <div>
-                        <button class="btn btn-primary">Add plot</button>
-                        <button class="btn btn-primary">Add block</button>
-                        <button class="btn btn-primary">Upload CSV file</button>
+                        <a role="button" class="btn btn-primary" href="/plots/add/scratch">Add single plot</a>
+                        <a role="button" class="btn btn-primary" href="/plots/add/batch">Add plots batch (csv upload)</a>
                     </div>
                     <h2>Plots, {{ sizeof($plots) }}</h2>
                 @else

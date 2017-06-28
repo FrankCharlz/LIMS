@@ -18,6 +18,26 @@ class PlotsController extends Controller {
     }
 
 
+    public function addScratch() {
+        $users = User::select('id', 'firstname', 'othernames')
+            ->orderBy('firstname', 'asc')
+            ->get()
+            ->toArray();
+
+        $statuses = DB::table('statusinfo')->select('id', 'name')->get();
+        $usages = DB::table('land_usage')->select('id', 'name')->get();
+
+        return view('plot-add')
+            ->with('users', $users)
+            ->with('statuses', $statuses)
+            ->with('usages', $usages);
+
+    }
+
+    public function addBatch() {
+        return view('plot-add-batch');
+    }
+
     public function add($latitude, $longitude) {
         $users = User::select('id', 'firstname', 'othernames')
             ->orderBy('firstname', 'asc')
@@ -100,6 +120,11 @@ class PlotsController extends Controller {
             ->with('wapi', $wapi);
     }
 
+    public function new_plot_batch(Request $request) {
+
+
+        return 'Processing the file...';
+    }
 
     public function new_plot(Request $request) {
 
