@@ -21,10 +21,12 @@
                             <div class="panel-heading">Add plot to database</div>
                             <div class="panel-body">
 
-                                {{ Form::open(array('url' => '/plots/new', 'class' => 'form-horizontal',
+                                {{ Form::open(array('url' => '/plots/editSave', 'class' => 'form-horizontal',
                                 'role' => 'form', 'files' => true)) }}
 
                                 {{ csrf_field() }}
+
+                                <input type="hidden" name="edited-plot" value="{{ $plot->id }}">
 
                                 <div class="form-group">
                                     {{ Form::label('lat', 'Latitude', ['class' => 'col-md-4 control-label']) }}
@@ -39,6 +41,14 @@
                                         {{ Form::text('lng', $plot->longitude, ['readonly' => true, 'id'=>'lng', 'class' => 'form-control', 'required' => true]) }}
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    {{ Form::label('plot-number', 'Plot no', ['class' => 'col-md-4 control-label']) }}
+                                    <div class="col-md-6">
+                                        {{ Form::text('plot-number', $plot->plot_number, ['id'=>'plot-number', 'class' => 'form-control', 'required' => true]) }}
+                                    </div>
+                                </div>
+
 
                                 <div class="form-group">
                                     {{ Form::label('area', 'Area (sqr metres)', ['class' => 'col-md-4 control-label']) }}
@@ -62,20 +72,26 @@
                                     </div>
                                 </div>
 
-                                <?php
-                                $options = [
-                                    1 => 'On sale',
-                                    2 => 'Reserved',
-                                    3 => 'Conflict',
-                                    4 => 'Other',
-                                    5 => 'Normal'
-                                ];
-                                ?>
-
                                 <div class="form-group">
                                     {{ Form::label('status', 'Status', ['class' => 'col-md-4 control-label']) }}
                                     <div class="col-md-6">
-                                        {{ Form::select('status', $options, 5, ['class' => 'form-control', 'id' => 'status']) }}
+                                        <select name="status" id="status" class="form-control" required>
+                                            @foreach($statuses as $status)
+                                                <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    {{ Form::label('usage', 'usage', ['class' => 'col-md-4 control-label']) }}
+                                    <div class="col-md-6">
+                                        <select name="usage" id="usage" class="form-control" required>
+                                            @foreach($usages as $usage)
+                                                <option value="{{ $usage->id }}">{{ $usage->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
 
@@ -84,7 +100,7 @@
                                     {{ Form::label('certificate', 'Upload new plot certificate', ['class' => 'col-md-4 control-label']) }}
                                     <div class="col-md-6">
                                         <img width="100%" src="/outis/{{ $plot->certificate->path }}">
-                                        <input type="file" name="image" id="btn-cert" class="form-control btn" required/>
+                                        <input type="file" name="image" id="btn-cert" class="form-control btn">
                                     </div>
                                 </div>
 
@@ -128,10 +144,6 @@
                     return false;
                 }
 
-                if (cert_file == "") {
-                    alert("No photo is uploaded for the plot certificate. \nPlease select a photo");
-                    return false;
-                }
             });
 
         });

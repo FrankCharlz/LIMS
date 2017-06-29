@@ -27,6 +27,9 @@
                         <th>Location</th>
                         <th>Geo-location</th>
                         <th>Area</th>
+                        @if(!$isManagerOrAdmin)
+                            <th>Applied for</th>
+                        @endif
                     </tr>
                     </thead>
                     <tbody>
@@ -37,6 +40,9 @@
                             <td>{{ $plot->wapi() }}</td>
                             <td>{{ $plot->latitude }}, {{ $plot->longitude }}</td>
                             <td>{{ $plot->area }}m<sup>2</sup></td>
+                            @if(!$isManagerOrAdmin)
+                                <td>{{ \App\Application::where('plot_id', $plot->id)->count() }}</td>
+                            @endif
                         </tr>
                     @endforeach
 

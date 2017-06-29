@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Block;
 use App\Certificate;
 use App\Location;
 use App\Plot;
 use App\User;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 
 class PlotsController extends Controller {
@@ -32,10 +35,6 @@ class PlotsController extends Controller {
             ->with('statuses', $statuses)
             ->with('usages', $usages);
 
-    }
-
-    public function addBatch() {
-        return view('plot-add-batch');
     }
 
     public function add($latitude, $longitude) {
@@ -64,9 +63,14 @@ class PlotsController extends Controller {
             ->toArray();
 
         $plot = Plot::find($id);
+        $statuses = DB::table('statusinfo')->select('id', 'name')->get();
+        $usages = DB::table('land_usage')->select('id', 'name')->get();
+
 
         return view('plot-edit')
             ->with('plot', $plot)
+            ->with('statuses', $statuses)
+            ->with('usages', $usages)
             ->with('users', $users);
     }
 
@@ -90,7 +94,7 @@ class PlotsController extends Controller {
 
 
     public function manage() {
-        $plots = Plot::all();
+        $plots = Plot::orderBy('id', 'asc')->get();
         return view('plots')->with('plots', $plots);
     }
 
@@ -120,10 +124,54 @@ class PlotsController extends Controller {
             ->with('wapi', $wapi);
     }
 
+
+    public function addBatch() {
+
+        $users = User::select('id', 'firstname', 'othernames')
+            ->orderBy('firstname', 'asc')
+            ->where('type', '<>', 'INDIVIDUAL')
+            ->get()
+            ->toArray();
+
+        return view('plot-add-batch')
+            ->with('users', $users);
+    }
+
     public function new_plot_batch(Request $request) {
 
 
-        return 'Processing the file...';
+        if (!$request->hasFile('plots-csv')) {
+            return back()->with('error', 'You must attach a .csv file!');
+        }
+
+        $file = $request->file('plots-csv');
+        $owner = $request->get('owner');
+
+        $valid = $file->isValid() && ($file->clientExtension() === 'csv');
+
+        //if(!$valid) { return back()->with('error', 'The attached file is not of supported format');     } else {}
+
+        $path = $file->store('csvs');
+
+        $contents =trim($contents = Storage::get($path));
+        $lines = explode(PHP_EOL, $contents);
+
+        $data = array();
+        foreach ($lines as $line) {
+            $item = str_getcsv($line);
+            array_push($data, [
+                    'block_id' => 501, //that awesome block
+                    'plot_number' => $item[0],
+                    'latitude' => $item[1],
+                    'longitude'=> $item[2],
+                    'owner_id'=> $owner,
+                    'certificate_id' => 2 //that dummy certificate [hati.jpg]
+                ]
+            );
+        }
+
+        DB::table('plots')->insert($data);
+        return redirect('/plots/manage');
     }
 
     public function new_plot(Request $request) {
@@ -142,6 +190,32 @@ class PlotsController extends Controller {
         return redirect('/plots/view/'.$addedPlot->id)->with('justAdded', true);
     }
 
+    public function editSave(Request $request) {
+
+        $plot = Plot::find($request->get('edited-plot'));
+        $plot->owner_id = $request->owner;
+        $plot->area = $request->area;
+        $plot->status_id = $request->get('status');
+        $plot->usage_id = $request->get('usage');
+        $plot->block_id = random_int(1, 50);
+        $plot->plot_number = $request->get('plot-number');
+        $plot->latitude = $request->lat;
+        $plot->longitude = $request->lng;
+        $plot->boundaries = $request->get('boundaries', null);
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $path = $request->image->store('images');
+            $certificate = new Certificate();
+            $certificate->path = $path;
+            $certificate->save();
+            $plot->certificate_id = $certificate->id;
+
+        }
+
+        $plot->save();
+
+        return redirect('/plots/view/'.$plot->id)->with('justAdded', true);
+    }
 
     public function all() {
         return Plot::all();

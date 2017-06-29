@@ -21,7 +21,8 @@ Route::get('/plots/add/{lat}/{lng}', 'PlotsController@add')->middleware('auth');
 Route::get('/plots/add/scratch', 'PlotsController@addScratch')->middleware('auth');
 Route::get('/plots/add/batch', 'PlotsController@addBatch')->middleware('auth');
 Route::post('/plots/new', 'PlotsController@new_plot')->middleware('auth');
-Route::post('/plots/new-batch', 'PlotsController@new_plot_batch')->middleware('auth');
+Route::post('/plots/new-batch', 'PlotsController@new_plot_batch'); //->middleware('auth');
+Route::post('/plots/editSave', 'PlotsController@editSave')->middleware('auth');
 Route::get('/plots/buy/{id}', 'PlotsController@buy')->middleware('auth');
 Route::get('/plots/{id}/edit', 'PlotsController@edit')->middleware('auth');
 Route::get('/plots/{id}/remove-on-sale', 'PlotsController@removeOnSale')->middleware('auth');
@@ -80,10 +81,6 @@ Route::get('/outis/images/{filename}', function ($filename) {
 Route::get('/qq', function() {
 
 });
-
-/***
- *  code for android
- */
 
 Route::post('/login/app', 'AppController@loginApp');
 Route::get('/app/user/{id}/plots', 'AppController@plots');

@@ -13,6 +13,7 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         '/home',
-        '/login/app'
+        '/login/app',
+        '/plots/new-batch'
     ];
 }

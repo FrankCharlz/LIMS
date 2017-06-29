@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         'Collective\Html\HtmlServiceProvider',
+        'Khill\Lavacharts\Laravel\LavachartsServiceProvider',
 
     ],
 
@@ -230,6 +231,7 @@ return [
 
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
+        'Lava' => 'Khill\Lavacharts\Laravel\LavachartsFacade',
 
     ],
 

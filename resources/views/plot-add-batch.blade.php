@@ -18,13 +18,34 @@
                                 </div>
                             @endif
 
-                            <div class="panel-heading">Add plot to database</div>
+                            <div class="panel-heading">Batch-add plots to database</div>
                             <div class="panel-body">
+
+                                @if(session('error'))
+                                    <div class="alert alert-danger">
+                                        <h4>Error:</h4>
+                                        {{ session('error')  }}
+                                    </div>
+                                @endif
 
                                 {{ Form::open(array('url' => '/plots/new-batch', 'class' => 'form-horizontal',
                                 'role' => 'form', 'files' => true)) }}
 
                                 {{ csrf_field() }}
+
+                                <div class="form-group">
+                                    {{ Form::label('owner', 'Owner', ['class' => 'col-md-4 control-label']) }}
+                                    <div class="col-md-6">
+                                        <select name="owner" class="form-control" id="owner" required>
+                                            <option value="" selected>Select plot owner</option>
+                                            @foreach($users as $user)
+                                                <option value="{{$user['id']}}">
+                                                    {{$user['firstname'] . ' ' . $user['othernames']}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
 
                                 <div class="form-group">
@@ -71,25 +92,9 @@
             margin: 8px 0;
         }
 
-        #bound-ul {
-            padding: 0;
-        }
-
         #bound-ul li input{
             /*border-width:  0 0 1px 0;*/
         }
-
-        .remove-li {
-            color: rgba(255, 0, 0, 0.73);
-            margin: 2px 6px;
-            font-size: 1.33em!important;
-        }
-
-        .remove-li:hover {
-            color: red;
-        }
-
-
 
 
     </style>

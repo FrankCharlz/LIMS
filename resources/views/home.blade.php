@@ -13,12 +13,11 @@
                 {{-- styles for popup --}}
 
                 <div class="status-color-codes">
+                    Key: &nbsp;&nbsp;&nbsp;
                     <span>Residential</span>
                     <span>Institutional</span>
                     <span>Open Space</span>
-                    <span>On Sale</span>
-                    <span>Conflict</span>
-                    <span>Show all</span>
+                    <span>Other</span>
                 </div>
 
             </div>
@@ -123,10 +122,15 @@
         }
         .status-color-codes  span {
             display: inline-block;
-            width: 16%;
+            width: 20%;
             margin: 4px auto;
-            border-bottom: 2px solid red;
+            padding: 0 12px;
         }
+
+        .status-color-codes  span:nth-child(1){ border-left: 12px solid #c11d1d;}
+        .status-color-codes  span:nth-child(2){ border-left: 12px solid #ffa2e2;}
+        .status-color-codes  span:nth-child(3){ border-left: 12px solid  mediumpurple;}
+        .status-color-codes  span:nth-child(4){ border-left: 12px solid  gray;}
 
 
     </style>

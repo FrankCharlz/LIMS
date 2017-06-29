@@ -2,22 +2,38 @@ var radius = 16;
 var opacity = 0.5;
 
 var color1 = {
-    color: '#2980ff',
-    fillColor: '#4584ff',
+    color: '#c11d1d',
+    fillColor: '#d22020',
     fillOpacity: opacity,
     radius: radius,
     weight: 1
 };
 
 var color2 = {
-    color: '#1417ff',
-    fillColor: '#2f3bff',
+    color: '#ffa2e2',
+    fillColor: '#b472a0',
     fillOpacity: opacity,
     radius: radius,
     weight: 1
 };
 
-var colors = [color1, color2];
+var color3 = {
+    color: '#9370DB',
+    fillColor: '#8a69ce',
+    fillOpacity: opacity,
+    radius: radius,
+    weight: 1
+};
+
+var color4 = {
+    color: '#808080',
+    fillColor: '#b4b4b4',
+    fillOpacity: opacity,
+    radius: radius,
+    weight: 1
+};
+
+var colors = [color1, color2, color3, color4];
 
 const DEFAULT_ZOOM = 14;
 const DEFAULT_CENTER = [-6.8512, 39.2544];
@@ -99,7 +115,7 @@ $(document).ready(function () {
 
                 boundaries = JSON.parse(boundaries);
                 //console.log(boundaries);
-                var color_index = parseInt(data[i]['status_id']) % colors.length; //todo: dejangalize here
+                var color_index = parseInt(data[i]['usage_id']) % colors.length; //todo: dejangalize here
 
                 console.log(data[i].id);
                 var plot = L.polygon(boundaries, colors[color_index]).addTo(map);
@@ -117,7 +133,7 @@ $(document).ready(function () {
 
                 plot.bindPopup(popup);
 
-                if (i == 50) break;
+                //if (i == 50) break; //limit
             }
         });
 
