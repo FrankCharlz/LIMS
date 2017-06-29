@@ -117,6 +117,9 @@ $(document).ready(function () {
                 //console.log(boundaries);
                 var color_index = parseInt(data[i]['usage_id']) % colors.length; //todo: dejangalize here
 
+                if (!boundaries) continue; //skip with no boundaries
+
+
                 console.log(data[i].id);
                 var plot = L.polygon(boundaries, colors[color_index]).addTo(map);
 

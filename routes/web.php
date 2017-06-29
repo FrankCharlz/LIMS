@@ -54,7 +54,6 @@ Route::get('/users/manage', 'UserController@manage');
 Route::get('/users/voidily/{uid}', 'UserController@voidily');
 
 Route::get('/reports', 'ReportsController@index');
-Route::get('/reports/applications/most-applied', 'ReportsController@applications');
 
 //image server
 Route::get('/outis/images/{filename}', function ($filename) {
@@ -79,7 +78,7 @@ Route::get('/outis/images/{filename}', function ($filename) {
 
 
 Route::get('/qq', function() {
-
+    return view('chart');
 });
 
 Route::post('/login/app', 'AppController@loginApp');
