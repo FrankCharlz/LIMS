@@ -5,6 +5,7 @@
 
         <div class="row">
             <div class="col-md-12">
+                @php( $statuses = ['Pending', 'Cancelled', 'Deleted', 'Complete'])
 
                 @foreach($applications as $application)
                     @php( $plot = \App\Plot::find($application['plot_id']) )
@@ -12,7 +13,7 @@
                         <h3>Plot {{ $plot->plot_number }}</h3>
                         <div><span>Location:</span> {{ $plot->wapi() }}</div>
                         <div><span>Owner:</span> {{ $plot->db_owner_name() }}</div>
-                        <div><span>Status:</span> {{ $application['status'] }}</div>
+                        <div><span>Status:</span> {{ $statuses[$application['status']] }}</div>
                         <div><span>Date:</span> {{ date('F d, Y H:m', strtotime($application->created_at)) }}</div>
                     </div>
                 @endforeach

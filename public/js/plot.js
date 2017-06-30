@@ -80,35 +80,38 @@ $(document).ready(function () {
 
 
     //initializing maps
-    function initMap() {
 
-        var point = {
-            lat: parseFloat(document.getElementById('lat').value),
-            lng: parseFloat(document.getElementById('lng').value)
-        };
-        var zoom = 20;
 
-        var gmap = new google.maps.Map(document.getElementById('gmap'), {
-            zoom: zoom,
-            center: point,
-            mapTypeId: 'satellite',
-            disableDefaultUI: true
-        });
-
-        var smap = L.map('smap').setView([ point.lat, point.lng], zoom);
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '&copy;<a href="http://osm.org/copyright">OpenStreetMap</a>'
-        }).addTo(smap);
-        smap.dragging.disable();
-        smap.touchZoom.disable();
-        smap.doubleClickZoom.disable();
-        smap.scrollWheelZoom.disable();
-        smap.boxZoom.disable();
-        smap.keyboard.disable();
-        if (smap.tap) smap.tap.disable();
-
-    }
-
-    //initMap();
+    initMap();
 
 });
+
+
+function initMap() {
+
+    var point = {
+        lat: parseFloat(document.getElementById('lat').value),
+        lng: parseFloat(document.getElementById('lng').value)
+    };
+    var zoom = 20;
+
+    var gmap = new google.maps.Map(document.getElementById('gmap'), {
+        zoom: zoom,
+        center: point,
+        mapTypeId: 'satellite',
+        disableDefaultUI: true
+    });
+
+    var smap = L.map('smap').setView([ point.lat, point.lng], zoom);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy;<a href="http://osm.org/copyright">OpenStreetMap</a>'
+    }).addTo(smap);
+    smap.dragging.disable();
+    smap.touchZoom.disable();
+    smap.doubleClickZoom.disable();
+    smap.scrollWheelZoom.disable();
+    smap.boxZoom.disable();
+    smap.keyboard.disable();
+    if (smap.tap) smap.tap.disable();
+
+}

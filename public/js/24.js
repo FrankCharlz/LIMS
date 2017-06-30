@@ -105,6 +105,10 @@ $(document).ready(function () {
 
     var showSavedPlots = function () {
 
+        L.marker([-6.831792717860206,39.2837405204773]).addTo(map)
+            .bindPopup('Newly added plots')
+            .openPopup();
+
         $.get( "/plots/all", function(data) {
             console.log('got plots:'+ data.length);
 
@@ -136,7 +140,7 @@ $(document).ready(function () {
 
                 plot.bindPopup(popup);
 
-                //if (i == 50) break; //limit
+                if (i == 50) break; //limit
             }
         });
 

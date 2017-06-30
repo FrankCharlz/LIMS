@@ -94,13 +94,13 @@ class PlotsController extends Controller {
 
 
     public function manage() {
-        $plots = Plot::orderBy('id', 'asc')->get();
+        $plots = Plot::orderBy('id', 'asc')->paginate(20);
         return view('plots')->with('plots', $plots);
     }
 
 
     public function plotsForUser() {
-        $plots = Plot::where('owner_id', Auth::id())->get();
+        $plots = Plot::where('owner_id', Auth::id())->paginate(20);
         return view('plots')->with('plots', $plots);
     }
 

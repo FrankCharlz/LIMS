@@ -31,7 +31,7 @@ class SearchController extends Controller {
 
         return view('search')
             ->with('plots', $plots)
-            ->with('locations', $locations)
+            ->with('locations', [])
             ->with('doneSearching', 1);
     }
 }

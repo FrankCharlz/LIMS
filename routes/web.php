@@ -42,6 +42,7 @@ Route::get('/applications', 'ApplicationController@listForUser');
 Route::get('/applications/all', 'ApplicationController@listAll');
 Route::get('/applications/create/{pid}', 'ApplicationController@create');
 Route::get('/applications/cancel/{id}', 'ApplicationController@cancel');
+Route::get('/applications/delete/{id}', 'ApplicationController@delete');
 
 //announcements
 Route::get('/announcements', 'AnnouncementController@index');

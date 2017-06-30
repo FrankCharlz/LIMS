@@ -17,11 +17,11 @@ class ReportsController extends Controller {
         $lava = new Lavacharts; // See note below for Laravel
 
         $p_apps_query = DB::select("
-                SELECT plots.plot_number, COUNT(user_id) AS 'idadi'
+                SELECT plots.plot_number, COUNT(applications.id) AS 'idadi'
                 FROM applications 
                 INNER JOIN plots ON (plots.id = applications.plot_id)
                 GROUP BY plots.plot_number
-                ORDER BY 'idadi' LIMIT 20");
+                ORDER BY 'idadi' LIMIT 30");
 
         $p_apps  = $lava
             ->DataTable()
@@ -32,7 +32,26 @@ class ReportsController extends Controller {
             $p_apps->addRow([$item->plot_number, $item->idadi]);
         }
 
-        $lava->BarChart('Plots', $p_apps);
+        $lava->BarChart('Plots', $p_apps, ['title' => 'Top applied', 'width' => '90%']);
+
+        /*-------------------------------------------------------------------------------------------*/
+        $u_apps_query = DB::select("
+                        SELECT username, COUNT(applications.id) AS 'idadi'
+                        FROM applications 
+                        INNER JOIN users ON (users.id = applications.user_id)
+                        GROUP BY username
+               ");
+
+        $u_apps  = $lava
+            ->DataTable()
+            ->addStringColumn('Plot Number')
+            ->addNumberColumn('Application Frequency');
+
+        foreach ($u_apps_query as $item) {
+            $u_apps->addRow([$item->username, $item->idadi]);
+        }
+
+        $lava->BarChart('Users', $u_apps, ['title' => 'Top appliers', 'barColor' => '#10b27c']);
 
 
 
@@ -41,10 +60,10 @@ class ReportsController extends Controller {
             'height'=> 250,
             'is3D'   => true,
             'slices' => [
-                ['offset' => 0.2],
-                ['offset' => 0.2],
-                ['offset' => 0.2],
-                ['offset' => 0.2]
+                ['offset' => 0.1],
+                ['offset' => 0.1],
+                ['offset' => 0.1],
+                ['offset' => 0.1]
             ]
         ];
 

@@ -25,6 +25,10 @@ class Plot extends Model {
         return $this->belongsTo(Usage::class);
     }
 
+    public function applications() {
+        return $this->hasMany(Application::class, 'plot_id');
+    }
+
 
     public function block() {
         return $this->belongsTo(Block::class, 'block_id');

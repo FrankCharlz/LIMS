@@ -29,18 +29,15 @@ class ApplicationController extends Controller {
         $application->save();
     }
 
-    public function store(Request $request) {
-        //
-    }
-
-
-    public function show($id) {
-        //
-    }
-
     public function cancel($id) {
         $application = Application::find($id);
         $application->status = 1; //status cancelled
+        $application->save();
+    }
+
+    public function delete($id) {
+        $application = Application::find($id);
+        $application->status = 2; //deleted by admin
         $application->save();
     }
 
@@ -51,7 +48,7 @@ class ApplicationController extends Controller {
     }
 
     public function listAll() {
-        $applications = Application::all();
+        $applications = Application::where('status', '<', 2)->orderBy('plot_id', 'asc')->get(); //exclude completeed and deleted
         return view('applications-manage')->with('applications', $applications);
     }
 

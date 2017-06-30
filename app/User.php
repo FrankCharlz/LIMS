@@ -32,6 +32,10 @@ class User extends Authenticatable
         return $this->hasOne(Role::class, 'role_id');
     }
 
+    public function name() {
+        return ($this->firstname . ' ' . $this->othernames);
+    }
+
     public function isApplyingFor($plotId) {
         $app = Application::where('plot_id', '=', $plotId)
             ->where('user_id', $this->id)

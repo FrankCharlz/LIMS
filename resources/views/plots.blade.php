@@ -13,12 +13,12 @@
                         <a role="button" class="btn btn-primary" href="/plots/add/scratch">Add single plot</a>
                         <a role="button" class="btn btn-primary" href="/plots/add/batch">Add plots batch (csv upload)</a>
                     </div>
-                    <h2>Plots, {{ sizeof($plots) }}</h2>
+                    <h2>Plots, {{ $plots->total()}}</h2>
                 @else
-                    <h2>My plots, {{ sizeof($plots) }}</h2>
+                    <h2>My plots, {{ $plots->count() }}</h2>
                 @endif
                 <hr>
-
+                    {{ $plots->links() }}
                 <table class="table table-responsive table-hover">
                     <thead>
                     <tr>

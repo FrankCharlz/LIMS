@@ -125,6 +125,23 @@
                         </td>
                     </tr>
 
+                    <tr class="appliers {{ $userOwnsIt ? '' : 'not-show'}}">
+                        <td>Appliers</td>
+                        <td>
+                            <div style="font-size: 13px;">
+                                <ol>
+                                    @foreach($plot->applications as $application)
+                                        <li>
+                                            <span>{{ $application->applier->name() }}</span>
+                                            <button class="btn-app-accept">Accept</button>
+                                        </li>
+                                    @endforeach
+                                </ol>
+                            </div>
+                        </td>
+                    </tr>
+
+
                     </tbody>
                 </table>
 
@@ -220,9 +237,9 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
-    {{--<script async defer--}}
-    {{--src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByP5hKqYp0Y4HmBFYPkwB4Hdu9Yar6Vo8&callback=initMap">--}}
-    {{--</script>--}}
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByP5hKqYp0Y4HmBFYPkwB4Hdu9Yar6Vo8&callback=initMap">
+    </script>
 
     <script src="{{ asset('/js/plot.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/plot-details.css') }}"/>
@@ -307,6 +324,9 @@
             right: 20px;
         }
 
+        .not-show {
+            display: none;
+        }
 
 
     </style>

@@ -7,8 +7,15 @@ $(document).ready(function () {
     });
 
 
-    $('.btn-options').click(function () {
-        //do something at least
+    $('.btn-del-app').click(function () {
+        var aid = this.attributes['data-aid'].value;
+        $.ajax({
+            url: '/applications/delete/'+aid,
+            data: {},
+            success: function () {window.location.reload(true); },
+            dataType: null,
+            done:null
+        });
     });
 
 
