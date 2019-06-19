@@ -1,2 +1,2 @@
-**Final Year Project**
+**FYP**
 `Hazisomeki`
