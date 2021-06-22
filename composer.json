@@ -9,7 +9,7 @@
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "~5.0",
-        "phpmailer/phpmailer": "~5.2",
+        "phpmailer/phpmailer": "~6.5",
         "khill/lavacharts" : "3.0.*"
     },
     "require-dev": {
